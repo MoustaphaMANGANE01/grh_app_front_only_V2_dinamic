@@ -1,7 +1,7 @@
 <template>
 <div>
   <Sidebar />
-  <Nuxt />
+  <Nuxt class="dark:bg-gray-900" />
 </div>
 
 </template>

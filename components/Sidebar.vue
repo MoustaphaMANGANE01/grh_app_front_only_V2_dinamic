@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="">
     <aside
       id="separator-sidebar"
       class="fixed top-0 left-0 z-40 w-64 h-screen border-r border-white transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
-      @click="toggleSidebar"
+
     >
       <div
         class="h-full px-3 h-screen flex-col flex justify-between py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
@@ -13,11 +13,7 @@
           <li>
             <NuxtLink to="/">
               <div>
-                <img
-                  src="~/assets/logo intech.png" 
-                  class="w-32"
-                  alt="logo"
-                />
+                <img src="~/assets/logo intech.png" class="w-32" alt="logo" />
               </div>
             </NuxtLink>
           </li>
@@ -43,7 +39,7 @@
           </li>
           <li>
             <NuxtLink
-              to="/"
+              to="/Employes"
               class="flex items-center p-2 text-gray-900 rounded-lg mt-5 mb-5 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -58,29 +54,18 @@
                   fill="currentColor"
                 ></path>
               </svg>
-              <span v-if="showSpans" class="ms-3">Analycis</span>
+              <span v-if="showSpans" class="ms-3">Employés</span>
             </NuxtLink>
           </li>
 
           <li>
             <NuxtLink
-              to="/products"
+              to="/Absence"
               class="flex items-center p-2 text-gray-900 mt-5 mb-5 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M17 4.5H14V3.5C14 2.70435 13.6839 1.94129 13.1213 1.37868C12.5587 0.816071 11.7956 0.5 11 0.5H9C8.20435 0.5 7.44129 0.816071 6.87868 1.37868C6.31607 1.94129 6 2.70435 6 3.5V4.5H3C2.20435 4.5 1.44129 4.81607 0.87868 5.37868C0.316071 5.94129 0 6.70435 0 7.5V16.5C0 17.2956 0.316071 18.0587 0.87868 18.6213C1.44129 19.1839 2.20435 19.5 3 19.5H17C17.7956 19.5 18.5587 19.1839 19.1213 18.6213C19.6839 18.0587 20 17.2956 20 16.5V7.5C20 6.70435 19.6839 5.94129 19.1213 5.37868C18.5587 4.81607 17.7956 4.5 17 4.5ZM8 3.5C8 3.23478 8.10536 2.98043 8.29289 2.79289C8.48043 2.60536 8.73478 2.5 9 2.5H11C11.2652 2.5 11.5196 2.60536 11.7071 2.79289C11.8946 2.98043 12 3.23478 12 3.5V4.5H8V3.5ZM18 16.5C18 16.7652 17.8946 17.0196 17.7071 17.2071C17.5196 17.3946 17.2652 17.5 17 17.5H3C2.73478 17.5 2.48043 17.3946 2.29289 17.2071C2.10536 17.0196 2 16.7652 2 16.5V11C2.97544 11.3869 3.97818 11.7011 5 11.94V12.53C5 12.7952 5.10536 13.0496 5.29289 13.2371C5.48043 13.4246 5.73478 13.53 6 13.53C6.26522 13.53 6.51957 13.4246 6.70711 13.2371C6.89464 13.0496 7 12.7952 7 12.53V12.32C7.99435 12.4554 8.99649 12.5255 10 12.53C11.0035 12.5255 12.0057 12.4554 13 12.32V12.53C13 12.7952 13.1054 13.0496 13.2929 13.2371C13.4804 13.4246 13.7348 13.53 14 13.53C14.2652 13.53 14.5196 13.4246 14.7071 13.2371C14.8946 13.0496 15 12.7952 15 12.53V11.94C16.0218 11.7011 17.0246 11.3869 18 11V16.5ZM18 8.81C17.0274 9.22049 16.0244 9.55483 15 9.81V9.5C15 9.23478 14.8946 8.98043 14.7071 8.79289C14.5196 8.60536 14.2652 8.5 14 8.5C13.7348 8.5 13.4804 8.60536 13.2929 8.79289C13.1054 8.98043 13 9.23478 13 9.5V10.24C11.0113 10.54 8.98875 10.54 7 10.24V9.5C7 9.23478 6.89464 8.98043 6.70711 8.79289C6.51957 8.60536 6.26522 8.5 6 8.5C5.73478 8.5 5.48043 8.60536 5.29289 8.79289C5.10536 8.98043 5 9.23478 5 9.5V9.83C3.97562 9.57483 2.9726 9.24049 2 8.83V7.5C2 7.23478 2.10536 6.98043 2.29289 6.79289C2.48043 6.60536 2.73478 6.5 3 6.5H17C17.2652 6.5 17.5196 6.60536 17.7071 6.79289C17.8946 6.98043 18 7.23478 18 7.5V8.81Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
+        <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.9,37c0-2.7,0.9-5.8,2.3-8.2c1.7-3,3.6-4.2,5.1-6.4c2.5-3.7,3-9,1.4-13c-1.6-4.1-5.4-6.5-9.8-6.4 s-8,2.8-9.4,6.9c-1.6,4.5-0.9,9.9,2.7,13.3c1.5,1.4,2.9,3.6,2.1,5.7c-0.7,2-3.1,2.9-4.8,3.7c-3.9,1.7-8.6,4.1-9.4,8.7 C1.3,45.1,3.9,49,8,49h17c0.8,0,1.3-1,0.8-1.6C23.3,44.5,21.9,40.8,21.9,37z"></path> <path d="M46.4,28.5c-4.7-4.7-12.3-4.7-17,0c-4.7,4.7-4.7,12.3,0,17c4.7,4.7,12.3,4.7,17,0 C51.1,40.8,51.1,33.2,46.4,28.5z M42.9,39.1c0.4,0.4,0.4,1.1-0.1,1.5l-1.4,1.4c-0.4,0.4-0.9,0.4-1.3-0.1L38,39.8l-2.2,2.2 c-0.4,0.4-0.9,0.4-1.3-0.1L33,40.5c-0.4-0.4-0.5-0.9-0.1-1.3l2.2-2.2L33,34.8c-0.4-0.4-0.5-0.9-0.1-1.3l1.4-1.4 c0.4-0.4,1.1-0.5,1.5-0.1l2.1,2.1l2.1-2.1c0.4-0.4,1.1-0.5,1.5-0.1l1.4,1.4c0.4,0.4,0.4,1.1-0.1,1.5l-2.1,2.1L42.9,39.1z"></path> </g></svg>
               <span v-if="showSpans" class="flex-1 ms-3 whitespace-nowrap"
-                >Products</span
+                >Absences</span
               >
             </NuxtLink>
           </li>
@@ -132,11 +117,11 @@
               >
             </NuxtLink>
           </li>
-          <li>
-            <NuxtLink
-              to="/"
-              class="flex items-center p-2 text-gray-900 mt-5 mb-5 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
+          <NuxtLink
+            to="/products"
+            class="flex items-center p-2 text-gray-900 mt-5 mb-5 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+            <li>
               <svg
                 width="31"
                 height="32"
@@ -152,8 +137,8 @@
               <span v-if="showSpans" class="flex-1 ms-3 whitespace-nowrap"
                 >Settings</span
               >
-            </NuxtLink>
-          </li>
+            </li>
+          </NuxtLink>
 
           <li>
             <NuxtLink
@@ -228,10 +213,10 @@
       </div>
     </aside>
 
-    <div id="nav" class="sm:ml-64" :style="{ marginLeft: dynamicMargin }">
-        <div class="p-3 border-white dark:bg-gray-800 dark:border-white flex justify-between items-center">
-
-     
+    <div id="nav" class="  sm:ml-64 " :style="{ marginLeft: dynamicMargin }">
+      <div
+        class="p-3 border-white dark:bg-gray-800 dark:border-white flex justify-between items-center"
+      >
         <div>
           <button
             @click="toggleSidebar"
@@ -277,7 +262,7 @@
             </div>
             <div>
               <svg
-              class="ml-5"
+                class="ml-5"
                 width="14px"
                 height="14px"
                 viewBox="0 0 24 24"
@@ -328,8 +313,6 @@
             </div>
           </div>
         </div>
-
-      
       </div>
     </div>
     <!-- <CardDashbord :style="{ marginLeft: dynamicMargin }" /> -->

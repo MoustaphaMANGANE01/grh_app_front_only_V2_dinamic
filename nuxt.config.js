@@ -15,6 +15,21 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'absence-show-id',
+        path: '/Absence/show/:id',
+        component: resolve(__dirname, 'pages/Absence/show_id.vue'),
+      });
+
+      routes.push({
+        name: 'absence-edit-id',
+        path: '/Absence/edit/:id',
+        component: resolve(__dirname, 'pages/Absence/edit_id.vue'),
+      });
+    },
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -22,6 +37,13 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {
+      src: "~/plugins/chart", ssr: false
+    },
+    {
+      src: "~/plugins/hchs-vue-charts", ssr: false
+    },
+
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -40,12 +62,38 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  // axios: {
+  //   // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+  //   baseURL: 'http://127.0.0.1:8000/api/v1/',
+
+  //   credentials: true,
+
+  // },
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://127.0.0.1:8000/api/v1/',
+    baseURL: process.env.API_BASE_URL,
+    browserBaseURL: process.env.BROWSER_BASE_URL,
+    // browserBaseURL: "https://api.cacsenegal.com/api/v1",
+    // baseURL: "https://api.cacsenegal.com/api/v1",
+  },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.API_BASE_URL,
+      baseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_BASE_URL,
+      browserBaseURL: process.env.API_BASE_URL
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+  // server: {
+  //   port: 53654,
+  //   host: '192.168.1.7',
+  //   timing: false // default: localhost
+  // }
 }

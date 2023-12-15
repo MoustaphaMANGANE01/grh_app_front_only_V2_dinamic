@@ -116,31 +116,26 @@ export default {
     };
   },
 
-  methods: {
-    async submit() {
-      try {
-        const response = await this.$axios.post("/auth/login",
-          {
-            email: this.email,
-            password: this.password,
-          }
-        );
+methods: {
+  async submit() {
+    try {
+      const response = await this.$axios.post("/auth/login", {
+        email: this.email,
+        password: this.password,
+      }, {
+      });
 
-        if (response.data.status === "success") {
-
-
-          localStorage.setItem('token',response.data.token)
+      if (response.data.status === "success") {
+        localStorage.setItem('token', response.data.token);
         this.$router.push({ name: "index" });
-
-        }else{
-
-        }
-        console.log(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la connexion:", error);
+      } else {
       }
-    },
+    } catch (error) {
+      console.error("Erreur lors de la connexion:", error);
+    }
   },
+},
+
 };
 </script>
 

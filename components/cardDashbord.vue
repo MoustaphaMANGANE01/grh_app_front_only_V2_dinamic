@@ -1,17 +1,26 @@
 <template>
-  <div @click="toggleSidebarProp" :style="{ marginLeft: dynamicMargin }" id="nav" class="ml-72 p-5 bg-gray-900">
+  <div
+    @click="toggleSidebarProp"
+    :style="{ marginLeft: dynamicMargin }"
+    id="nav"
+    class="ml-72 p-5 bg-gray-900"
+  >
     <div class="flex justify-start mb-10 mt-5">
-      <p class="text-gray-900 dark:text-white text-2xl font-bold">Overview</p>
+      <p class="text-gray-900 dark:text-white text-2xl font-bold">
+        Tableau de Board
+      </p>
     </div>
     <div class="">
-    <div class="grid  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+      <div
+        class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full"
+      >
         <div
           class="flex justify-between w-auto h-28 p-5 rounded-xl items-center bg-gray-800 text-white"
         >
           <div class="  ">
             <p class="text-gray-300 text-xl">Salaire Net des Employés</p>
             <div class="flex justify-between">
-              <p class="text-white">F CFA{{ salaireNetEmployes }}</p>
+              <p class="text-white font-bold">F CFA {{ salaireNetEmployes }}</p>
               <div class="flex justify-between">
                 <div class="w-5 h-5 items-center">
                   <svg
@@ -145,9 +154,9 @@
           class="flex justify-between w-auto h-28 p-5 rounded-xl items-center bg-gray-800 text-white"
         >
           <div class="  ">
-            <p class="text-gray-300 text-xl">Total Clients</p>
+            <p class="text-gray-300 text-xl">Employés Présents Aujourd'hui</p>
             <div class="flex justify-between">
-              <p class="text-white">2.500K</p>
+              <p class="text-white">{{employésPresents}} Employés</p>
               <div class="flex justify-between">
                 <div class="w-5 h-5 items-center">
                   <svg
@@ -211,9 +220,9 @@
           class="flex justify-between w-auto h-28 p-5 rounded-xl items-center bg-gray-800 text-white"
         >
           <div class="  ">
-            <p class="text-gray-300 text-xl">Custom stats</p>
+            <p class="text-gray-300 text-xl">Employés Absences Aujourd'hui</p>
             <div class="flex justify-between">
-              <p class="text-white">£ 2.500</p>
+              <p class="text-white"> {{  nombreEmployesAbscent}} Employés </p>
               <div class="flex justify-between">
                 <div class="w-5 h-5 items-center">
                   <svg
@@ -275,31 +284,34 @@
         </div>
       </div>
     </div>
-   <div class="flex justify-between gap-4 pr-5 pb-5 flex-col sm:flex-row md:flex-row">
-      <div class="bg-gray-800 w-full sm:w-1/2 md:w-1/2 h-auto rounded-xl mt-10 p-5">
-    <h1 class="text-white text-2xl pt-2 font-bold">Statistics</h1>
-        <div class="h-auto ">
-                  <img :src="require(`@/assets/imrew76bk.svg`)" class="w-full h-full object-cover" >
-
+    <div
+      class="flex justify-between gap-4 pr-5 pb-5 flex-col sm:flex-row md:flex-row"
+    >
+      <div
+        class="bg-gray-800 w-full sm:w-1/2 md:w-1/2 h-auto rounded-xl mt-10 p-5"
+      >
+        <h1 class="text-white text-2xl pt-2 font-bold">Nombre de Retards Annuelle</h1>
+        <div class="h-auto">
+          <Chart />
         </div>
-    </div>
-      <div class="bg-gray-800 w-full sm:w-1/2 md:w-1/2 h-auto rounded-xl mt-10 p-5">
-    <h1 class="text-white text-2xl pt-2 font-bold">Statistics</h1>
-        <div class="h-auto ">
-                  <img :src="require(`@/assets/imrew76bk.svg`)" class="w-full h-full object-cover" >
-
+      </div>
+      <div
+        class="bg-gray-800 w-full sm:w-1/2 md:w-1/2 h-auto rounded-xl mt-10 p-5"
+      >
+        <h1 class="text-white text-2xl pt-2 font-bold">Nombre d'Absences Annuelle</h1>
+        <div class="h-auto">
+          <ChartAbsence />
         </div>
+      </div>
     </div>
-</div>
-
   </div>
 </template>
 
 <script>
- import cardDashbord from '../components/cardDashbord.vue'
+import cardDashbord from "../components/cardDashbord.vue";
 export default {
   components: { cardDashbord },
-  name: 'IndexPage',
+  name: "IndexPage",
   data() {
     return {
       showSpans: true,
@@ -309,16 +321,26 @@ export default {
   },
   props: {
     salaireNetEmployes: {
-      type: String, 
-      default: "", 
+      type: Number,
+     default:"0"
     },
     nombreEmployes: {
-      type: String, 
-      default: "", 
+      type: Number,
+     
+    },
+     nombreEmployesAbscent: {
+      type: Number,
+     
+    },
+    employésPresents: {
+      type: Number,
+      
     },
   },
+  
+  
   methods: {
-   toggleSidebar() {
+    toggleSidebar() {
       const separatorSidebar = document.getElementById("separator-sidebar");
 
       if (this.isSidebarMinimized) {
@@ -332,11 +354,11 @@ export default {
       this.isSidebarMinimized = !this.isSidebarMinimized;
       this.showSpans = !this.showSpans;
     },
-      toggleSidebarProp() {
+    toggleSidebarProp() {
       this.toggleSidebar();
     },
   },
-}
+};
 </script>
 <style  scoped>
 #separator-sidebar {

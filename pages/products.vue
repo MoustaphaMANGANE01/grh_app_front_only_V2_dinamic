@@ -1,15 +1,16 @@
 <template>
-  <div>
+  <div class="bg-gray-900">
     <Productslists />
+   
   </div>
 </template>
 
 <script>
-import ProductsLists from "../components/ProductsLists.vue";
+// import ProductsLists from "../components/ProductsLists.vue";
 
 export default {
   components: {
-    ProductsLists,
+    // ProductsLists,
   },
 };
 </script>

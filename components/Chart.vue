@@ -1,110 +1,83 @@
 <template>
-  <div id="statsChart" class="tw-bg-white dark:tw-bg-surface tw-rounded-xl tw-p-4">
-    <div class="headTitle tw-flex tw-justify-between tw-mb-3 tw-flex-wrap">
-      <div class="leftTitle">
-        <h4 class="tw-text-2xl tw-text-black dark:tw-text-white">Statistics</h4>
-      </div>
-    </div>
-    <div>
-      <client-only>
-        <ApexCharts
-          :options="chartOptions"
-          :series="series"
-          :height="300"
-          chart-id="lineChart"
-        />
-      </client-only>
-    </div>
+  <div>
+    <canvas ref="myChart"></canvas>
   </div>
 </template>
 
 <script>
-// import ApexCharts from 'vue-apexcharts';
+import axios from 'axios';
 
 export default {
   data() {
     return {
-      chartOptions: {
-        chart: {
-          type: "bar",
-          stacked: true,
-          toolbar: {
-            show: true,
-          },
-        },
-        foreColor: "#999",
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: "30%",
-            borderRadius: 5,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ["transparent"],
-          curve: "smooth", // Ajout de curve ici si nécessaire
-        },
-        zoom: {
-          enabled: false,
-        },
-        legend: {
-          show: false,
-        },
-        colors: ["#0090FF", "#FF955C"],
-        xaxis: {
-          categories: [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-          ],
-          axisBorder: {
-            show: false,
-          },
-        },
-        yaxis: {
-          labels: {
-            formatter: (val) => val + "k",
-            offsetX: -15,
-          },
-        },
-        fill: {
-          opacity: 1,
-        },
-        tooltip: {
-          y: {
-            formatter: (val) => "$" + val + "k",
-          },
-        },
-        grid: {
-          show: true,
-          borderColor: "#33363d",
-          xaxis: {
-            lines: {
-              show: false,
-            },
-          },
-          padding: {
-            left: -5,
-            right: 5,
-          },
-        },
-      },
-      series: [
-        {
-          name: "Actual",
-          data: [65, 59, 80, 81, 56, 89, 40, 32, 65, 59, 80, 81],
-        },
-        {
-          name: "Projection",
-          data: [89, 40, 32, 65, 59, 80, 81, 56, 89, 40, 65, 59],
-        },
-      ],
+      chartData: null,
     };
   },
+  mounted() {
+    this.fetchChartData();
+  },
+  methods: {
+    fetchChartData() {
+      const authToken = localStorage.getItem("token");
+      console.log('Token:', authToken); 
+      axios.get("http://127.0.0.1:8000/api/v1/charts/retards", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      })
+        .then(response => {
+          this.chartData = response.data.data;
+          this.createChart();
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des données de l\'API', error);
+        });
+    },
+createChart() {
+  const ctx = this.$refs.myChart.getContext('2d');
+  const myChart = new this.$chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: this.chartData.labels,
+      datasets: [{
+        label: 'Nombre de retards',
+        data: this.chartData.datas,
+        backgroundColor: [
+          'rgba(255, 133, 51, 0.8)', 
+          'rgba(70, 130, 180, 0.8)'  
+        ],
+        borderColor: [
+          'rgba(255, 133, 51, 1)',   
+          'rgba(70, 130, 180, 1)'    
+        ],
+        borderWidth: 1,
+        borderRadius: 15,  
+        hoverBackgroundColor: [
+          'rgba(255, 133, 51, 1)',  
+          'rgba(70, 130, 180, 1)'   
+        ],
+        hoverBorderColor: [
+          'rgba(255, 133, 51, 1)',   
+          'rgba(70, 130, 180, 1)'    
+        ],
+        tension: 0.0
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true  // Commencer à partir de zéro
+        }
+      }
+    }
+  });
+}
+
+
+
+  }
 };
 </script>
 
-<style></style>
+<style scoped>
+</style>
