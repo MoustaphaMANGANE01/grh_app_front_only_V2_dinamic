@@ -1,11 +1,11 @@
 <template>
-  <div class="py-20 px-20 mx-auto bg-gray-900 sm:px-0 sm:w-full md:p-0">
+  <div class="py-20 px-20 mx-auto bg-gray-900">
     <div class="headTitle flex justify-between mb-4">
       <div class="leftTitle">
         <h4 class="text-2xl text-black dark:text-white">Profile</h4>
       </div>
       <div class="rightContent">
-        <!-- <div class="exportContent inline-block relative group">
+        <div class="exportContent inline-block relative group">
           <button
             type="button"
             class="peer inline-flex items-center text-gray-500 bg-white hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-surface dark:text-gray-400 dark:hover:bg-gray-700"
@@ -99,8 +99,8 @@
               </button>
             </div>
           </div>
-        </div> -->
-        <!-- <button
+        </div>
+        <button
           type="button"
           class="inline-flex items-center ml-2 text-gray-500 bg-blue-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
         >
@@ -118,7 +118,7 @@
               fill="white"
             ></path>
           </svg>
-        </button> -->
+        </button>
       </div>
     </div>
     <div
@@ -126,7 +126,7 @@
     >
       <div class="px-2 py-5 sm:px-6 bg-gray-900 flex justify-center rounded-xl">
         <h2 class="md:text-2xl sm:text-sm leading-6 font-bold text-white">
-          Enregistrer un employé
+          Modifier un employé
         </h2>
       </div>
       <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -134,7 +134,7 @@
           <div class="flex-col">
             <h5 class="font-bold text-xl text-gray-500 p-2">Identité</h5>
             <div class="md:flex sm:flex-row sm:p-0 p-2">
-              <div class="mb-4 flex-1 p-2">
+              <!-- <div class="mb-4 flex-1 p-2">
                 <label
                   for="photo"
                   class="block text-sm font-semibold text-gray-100"
@@ -147,7 +147,7 @@
                   id="photo"
                   @change="handlePhotoChange"
                 />
-              </div>
+              </div> -->
 
               <div class="mb-4 flex-1 p-2">
                 <label
@@ -156,7 +156,7 @@
                   >Prénom</label
                 >
                 <input
-                  v-model="prenom"
+                  v-model="employeeData.employer.prenom"
                   type="text"
                   name="prenom"
                   id="prenom"
@@ -171,7 +171,7 @@
                   >Nom</label
                 >
                 <input
-                  v-model="name"
+                  v-model="employeeData.employer.name"
                   type="text"
                   name="nom"
                   id="nom"
@@ -191,7 +191,7 @@
                   >Téléphone</label
                 >
                 <input
-                  v-model="phone"
+                  v-model="employeeData.employer.phone"
                   type="tel"
                   name="telephone"
                   id="phone"
@@ -206,7 +206,7 @@
                   >Adresse</label
                 >
                 <input
-                  v-model="adresse"
+                  v-model="employeeData.employer.adresse"
                   type="text"
                   name="adresse"
                   id="adresse"
@@ -221,7 +221,7 @@
                   >Email</label
                 >
                 <input
-                  v-model="email"
+                  v-model="employeeData.employer.email"
                   type="email"
                   name="email"
                   id="email"
@@ -244,7 +244,7 @@
                   >Genre</label
                 >
                 <input
-                  v-model="sexe"
+                  v-model="employeeData.employer.sexe"
                   type="text"
                   name="sexe"
                   id="sexe"
@@ -260,7 +260,7 @@
                 >
 
                 <select
-                  v-model="situation_matrimonial"
+                  v-model="employeeData.employer.situation_matrimonial"
                   aria-placeholder="Situation Matrimoniale"
                   type="text"
                   name="situation_matrimonial"
@@ -280,7 +280,7 @@
                   >Nombre d'Enfants</label
                 >
                 <input
-                  v-model="nombre_enfants"
+                  v-model="employeeData.employer.nombre_enfants"
                   type="number"
                   name="nombre_enfants"
                   id="nombre_enfants"
@@ -295,7 +295,7 @@
                   >Date de Naissance</label
                 >
                 <input
-                  v-model="date_de_naissance"
+                  v-model="employeeData.employer.date_de_naissance"
                   type="date"
                   name="date_de_naissance"
                   id="date_de_naissance"
@@ -317,7 +317,7 @@
                   >Type de Contrat</label
                 >
                 <select
-                  v-model="type_de_contrat"
+                  v-model="employeeData.employer.type_de_contrat"
                   type="text"
                   name="type_de_contrat"
                   id="type_de_contrat"
@@ -337,7 +337,7 @@
                   >Salaire</label
                 >
                 <input
-                  v-model="salaire"
+                  v-model="employeeData.employer.salaire"
                   type="number"
                   name="salaire"
                   id="salaire"
@@ -352,7 +352,7 @@
                   >Date d'Entrée</label
                 >
                 <input
-                  v-model="date_entree"
+                  v-model="employeeData.employer.date_entree"
                   type="date"
                   name="date_entree"
                   id="date_entree"
@@ -367,7 +367,7 @@
                   >Rôle</label
                 >
                 <select
-                  v-model="role"
+                  v-model="employeeData.employer.role"
                   name="role"
                   id="role"
                   class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
@@ -389,7 +389,7 @@
                   >Solde Points</label
                 >
                 <input
-                  v-model="solde_points"
+                  v-model="employeeData.employer.solde_points"
                   type="number"
                   name="solde_points"
                   id="solde_points"
@@ -404,7 +404,7 @@
                   >Solde Congés</label
                 >
                 <input
-                  v-model="solde_conges"
+                  v-model="employeeData.employer.solde_conges"
                   type="number"
                   name="solde_conges"
                   id="solde_conges"
@@ -419,7 +419,7 @@
                 type="submit"
                 class="bg-gray-900 text-white flex justify-center w-full py-2 rounded-xl"
               >
-                Enregistrer
+                Modifier
               </button>
             </div>
           </div>
@@ -437,6 +437,31 @@ import axios from "axios";
 export default {
   data() {
     return {
+      employeeData: {
+        employer: {
+          id: null,
+          name: "",
+          prenom: "",
+          photo: null,
+          adresse: "",
+          email: "",
+          sexe: "",
+          phone: "",
+          situation_matrimonial: "",
+          nombre_enfants: null,
+          type_de_contrat: "",
+          date_de_naissance: "",
+          salaire: null,
+          date_entree: "",
+          solde_points: null,
+          solde_conges: null,
+          role: "",
+          created_at: "",
+          updated_at: "",
+          document: null,
+        },
+      },
+      employeeId: null,
       photo: null,
       prenom: "",
       name: "",
@@ -454,115 +479,53 @@ export default {
       solde_conges: "",
       role: "",
       error: null,
+      updatedData: {}, 
     };
   },
-  methods: {
-  handlePhotoChange(event) {
-      const file = event.target.files[0];
+  mounted() {
+    try {
+      this.employeeId = this.$route.params.id;
+      console.log(this.employeeId);
+      const token = localStorage.getItem("token");
+      console.log(token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const image = new Image();
-          image.src = reader.result;
-
-          image.onload = () => {
-            const { width, height } = imageSize(Buffer.from(reader.result));
-
-            const maxSizeInBytes = 2048 * 1024; // 2 Mo
-            const currentSizeInBytes = file.size;
-
-            if (currentSizeInBytes > maxSizeInBytes) {
-              const aspectRatio = width / height;
-              const maxWidth = Math.sqrt(maxSizeInBytes * aspectRatio);
-              const maxHeight = maxWidth / aspectRatio;
-
-              let newWidth = width;
-              let newHeight = height;
-
-              if (width > maxWidth || height > maxHeight) {
-                const aspectRatio = width / height;
-
-                if (width > height) {
-                  newWidth = maxWidth;
-                  newHeight = maxWidth / aspectRatio;
-                } else {
-                  newHeight = maxHeight;
-                  newWidth = maxHeight * aspectRatio;
-                }
-              }
-
-              const canvas = document.createElement("canvas");
-              canvas.width = newWidth;
-              canvas.height = newHeight;
-              const ctx = canvas.getContext("2d");
-              ctx.drawImage(image, 0, 0, newWidth, newHeight);
-
-              canvas.toBlob((blob) => {
-                const resizedFile = new File([blob], file.name, { type: file.type });
-                this.photo = resizedFile;
-              }, file.type);
-            } else {
-              this.photo = file;
-            }
-          };
-        };
-
-        reader.readAsArrayBuffer(file);
-      }
-    },
-     async submitForm() {
-      try {
-        if (process.client) {
-          const token = localStorage.getItem("token");
-
-          if (!token) {
-            console.error(
-              "Pas de jeton d'authentification disponible. Assurez-vous que l'utilisateur est authentifié."
-            );
-            return;
+      axios.get(`http://127.0.0.1:8000/api/v1/employes/show/${this.employeeId}`)
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("API Response:", response.data);
+            this.employeeData = response.data;
+          } else {
+            console.error("API Error. Status:", response.status);
           }
+        })
+        .catch((error) => {
+          console.error("Error fetching data from the API", error);
+        });
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    }
+  },
+  methods: {
+    async submitForm() {
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/api/v1/employes/update/${this.employeeId}`, this.employeeData.employer);
 
-          const formData = new FormData();
-if (this.photo instanceof File) {
-  formData.append("photo", this.photo);
-}
-          formData.append("prenom", this.prenom);
-          formData.append("name", this.name);
-          formData.append("adresse", this.adresse);
-          formData.append("email", this.email);
-          formData.append("sexe", this.sexe);
-          formData.append("phone", this.phone);
-          formData.append("situation_matrimonial", this.situation_matrimonial);
-          formData.append("nombre_enfants", this.nombre_enfants);
-          formData.append("type_de_contrat", this.type_de_contrat);
-          formData.append("date_de_naissance", this.date_de_naissance);
-          formData.append("salaire", this.salaire);
-          formData.append("date_entree", this.date_entree);
-          formData.append("solde_points", this.solde_points);
-          formData.append("solde_conges", this.solde_conges);
-          formData.append("role", this.role);
+        // this.updatedData = response.data;
+        this.$router.push({ name: "Employes" });
 
-          const response = await axios.post(
-            "http://127.0.0.1:8000/api/v1/employes/store",
-            formData,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
- this.$router.push({ name: "Employes" });
-          console.log("Réponse du serveur :", response.data);
-        }
+        console.log('Données mises à jour avec succès!', this.employeeData.employer);
       } catch (error) {
-        console.error("Erreur lors de l'envoi du formulaire :", error);
-        this.error = "Une erreur s'est produite lors de l'enregistrement de l'employé.";
+        console.error('Erreur lors de la mise à jour des données:', error);
       }
     },
   },
-};
+}
 </script>
-  
 
+
+
+
+<style lang="scss" scoped>
+
+</style>

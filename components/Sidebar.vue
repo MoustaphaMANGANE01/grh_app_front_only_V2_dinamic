@@ -1,10 +1,11 @@
 <template>
-  <div class="">
+  <div class="fixed w-full">
     <aside
+      :class="{'-translate-x-full': !isSidebarVisible, 'translate-x-0': isSidebarVisible}"
+
       id="separator-sidebar"
       class="fixed top-0 left-0 z-40 w-64 h-screen border-r border-white transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
-
     >
       <div
         class="h-full px-3 h-screen flex-col flex justify-between py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
@@ -63,7 +64,31 @@
               to="/Absence"
               class="flex items-center p-2 text-gray-900 mt-5 mb-5 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
-        <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.9,37c0-2.7,0.9-5.8,2.3-8.2c1.7-3,3.6-4.2,5.1-6.4c2.5-3.7,3-9,1.4-13c-1.6-4.1-5.4-6.5-9.8-6.4 s-8,2.8-9.4,6.9c-1.6,4.5-0.9,9.9,2.7,13.3c1.5,1.4,2.9,3.6,2.1,5.7c-0.7,2-3.1,2.9-4.8,3.7c-3.9,1.7-8.6,4.1-9.4,8.7 C1.3,45.1,3.9,49,8,49h17c0.8,0,1.3-1,0.8-1.6C23.3,44.5,21.9,40.8,21.9,37z"></path> <path d="M46.4,28.5c-4.7-4.7-12.3-4.7-17,0c-4.7,4.7-4.7,12.3,0,17c4.7,4.7,12.3,4.7,17,0 C51.1,40.8,51.1,33.2,46.4,28.5z M42.9,39.1c0.4,0.4,0.4,1.1-0.1,1.5l-1.4,1.4c-0.4,0.4-0.9,0.4-1.3-0.1L38,39.8l-2.2,2.2 c-0.4,0.4-0.9,0.4-1.3-0.1L33,40.5c-0.4-0.4-0.5-0.9-0.1-1.3l2.2-2.2L33,34.8c-0.4-0.4-0.5-0.9-0.1-1.3l1.4-1.4 c0.4-0.4,1.1-0.5,1.5-0.1l2.1,2.1l2.1-2.1c0.4-0.4,1.1-0.5,1.5-0.1l1.4,1.4c0.4,0.4,0.4,1.1-0.1,1.5l-2.1,2.1L42.9,39.1z"></path> </g></svg>
+              <svg
+                fill="#ffffff"
+                xmlns="http://www.w3.org/2000/svg"
+                width="30px"
+                height="30px"
+                viewBox="0 0 52 52"
+                enable-background="new 0 0 52 52"
+                xml:space="preserve"
+                stroke="#ffffff"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M21.9,37c0-2.7,0.9-5.8,2.3-8.2c1.7-3,3.6-4.2,5.1-6.4c2.5-3.7,3-9,1.4-13c-1.6-4.1-5.4-6.5-9.8-6.4 s-8,2.8-9.4,6.9c-1.6,4.5-0.9,9.9,2.7,13.3c1.5,1.4,2.9,3.6,2.1,5.7c-0.7,2-3.1,2.9-4.8,3.7c-3.9,1.7-8.6,4.1-9.4,8.7 C1.3,45.1,3.9,49,8,49h17c0.8,0,1.3-1,0.8-1.6C23.3,44.5,21.9,40.8,21.9,37z"
+                  ></path>
+                  <path
+                    d="M46.4,28.5c-4.7-4.7-12.3-4.7-17,0c-4.7,4.7-4.7,12.3,0,17c4.7,4.7,12.3,4.7,17,0 C51.1,40.8,51.1,33.2,46.4,28.5z M42.9,39.1c0.4,0.4,0.4,1.1-0.1,1.5l-1.4,1.4c-0.4,0.4-0.9,0.4-1.3-0.1L38,39.8l-2.2,2.2 c-0.4,0.4-0.9,0.4-1.3-0.1L33,40.5c-0.4-0.4-0.5-0.9-0.1-1.3l2.2-2.2L33,34.8c-0.4-0.4-0.5-0.9-0.1-1.3l1.4-1.4 c0.4-0.4,1.1-0.5,1.5-0.1l2.1,2.1l2.1-2.1c0.4-0.4,1.1-0.5,1.5-0.1l1.4,1.4c0.4,0.4,0.4,1.1-0.1,1.5l-2.1,2.1L42.9,39.1z"
+                  ></path>
+                </g>
+              </svg>
               <span v-if="showSpans" class="flex-1 ms-3 whitespace-nowrap"
                 >Absences</span
               >
@@ -71,28 +96,16 @@
           </li>
           <li>
             <NuxtLink
-              to="/"
+              to="/retards"
               class="flex items-center p-2 text-gray-900 mt-5 mb-5 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 20 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 17C12.2653 17 12.5196 16.8947 12.7071 16.7071C12.8947 16.5196 13 16.2652 13 16V14C13 13.7348 12.8947 13.4805 12.7071 13.2929C12.5196 13.1054 12.2653 13 12 13C11.7348 13 11.4805 13.1054 11.2929 13.2929C11.1054 13.4805 11 13.7348 11 14V16C11 16.2652 11.1054 16.5196 11.2929 16.7071C11.4805 16.8947 11.7348 17 12 17ZM8.00004 17C8.26525 17 8.51961 16.8947 8.70714 16.7071C8.89468 16.5196 9.00004 16.2652 9.00004 16V14C9.00004 13.7348 8.89468 13.4805 8.70714 13.2929C8.51961 13.1054 8.26525 13 8.00004 13C7.73482 13 7.48047 13.1054 7.29293 13.2929C7.10539 13.4805 7.00004 13.7348 7.00004 14V16C7.00004 16.2652 7.10539 16.5196 7.29293 16.7071C7.48047 16.8947 7.73482 17 8.00004 17ZM17 5.00003H15.62L13.89 1.55003C13.8372 1.42308 13.7587 1.3084 13.6595 1.21316C13.5603 1.11791 13.4426 1.04414 13.3136 0.996469C13.1846 0.948794 13.0472 0.928235 12.9099 0.936075C12.7726 0.943915 12.6384 0.979987 12.5157 1.04204C12.3929 1.10408 12.2843 1.19078 12.1966 1.2967C12.1089 1.40261 12.044 1.52548 12.006 1.65762C11.9679 1.78976 11.9575 1.92833 11.9754 2.06467C11.9933 2.20102 12.0391 2.3322 12.11 2.45003L13.38 5.00003H6.62004L7.89004 2.45003C7.9871 2.21693 7.9924 1.95575 7.90486 1.71891C7.81732 1.48208 7.64343 1.28712 7.4181 1.17319C7.19277 1.05926 6.93268 1.03479 6.69005 1.10469C6.44742 1.17458 6.24022 1.33368 6.11004 1.55003L4.38004 5.00003H3.00004C2.29323 5.01078 1.61291 5.27077 1.07909 5.73416C0.545259 6.19755 0.192211 6.83455 0.0822073 7.53283C-0.0277959 8.23112 0.112313 8.94581 0.477823 9.55088C0.843332 10.1559 1.41076 10.6125 2.08004 10.84L2.82004 18.3C2.89466 19.0426 3.24338 19.7307 3.79811 20.2299C4.35284 20.7292 5.07374 21.0038 5.82004 21H14.2C14.9463 21.0038 15.6672 20.7292 16.222 20.2299C16.7767 19.7307 17.1254 19.0426 17.2 18.3L17.94 10.84C18.6108 10.6118 19.1791 10.1536 19.5443 9.54651C19.9096 8.93942 20.0482 8.22266 19.9356 7.52317C19.823 6.82368 19.4665 6.18661 18.9292 5.7248C18.3919 5.26299 17.7085 5.00624 17 5.00003ZM15.19 18.1C15.1652 18.3475 15.0489 18.5769 14.864 18.7433C14.6791 18.9098 14.4388 19.0013 14.19 19H5.81004C5.56127 19.0013 5.32097 18.9098 5.13606 18.7433C4.95115 18.5769 4.83491 18.3475 4.81004 18.1L4.10004 11H15.9L15.19 18.1ZM17 9.00003H3.00004C2.73482 9.00003 2.48047 8.89467 2.29293 8.70713C2.10539 8.5196 2.00004 8.26524 2.00004 8.00003C2.00004 7.73481 2.10539 7.48046 2.29293 7.29292C2.48047 7.10538 2.73482 7.00003 3.00004 7.00003H17C17.2653 7.00003 17.5196 7.10538 17.7071 7.29292C17.8947 7.48046 18 7.73481 18 8.00003C18 8.26524 17.8947 8.5196 17.7071 8.70713C17.5196 8.89467 17.2653 9.00003 17 9.00003Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
+            ><svg fill="#ffffff" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M295.391,0h-78.783c-5.443,0-8.706,4.322-8.706,9.76v39.391c0,5.438,3.263,9.935,8.706,9.935h78.783 c5.443,0,10.99-4.497,10.99-9.935V9.76C306.381,4.322,300.835,0,295.391,0z M286.686,39.391h-59.087V19.696h59.087V39.391z"></path> </g> </g> <g> <g> <path d="M256,78.695c-119.463,0-216.652,97.19-216.652,216.652C39.348,414.81,136.537,512,256,512 c119.463,0,216.652-97.19,216.652-216.652C472.652,175.885,375.463,78.695,256,78.695z M256,492.304 c-108.605,0-196.957-88.357-196.957-196.957c0-108.601,88.352-196.957,196.957-196.957c108.605,0,196.957,88.356,196.957,196.957 C452.957,403.948,364.605,492.304,256,492.304z"></path> </g> </g> <g> <g> <path d="M256,137.782c-86.88,0-157.565,70.685-157.565,157.565c0,86.88,70.685,157.565,157.565,157.565 c86.88,0,157.565-70.685,157.565-157.565C413.565,208.467,342.88,137.782,256,137.782z M256,433.217 c-76.023,0-137.87-61.847-137.87-137.87c0-76.023,61.847-137.87,137.87-137.87s137.87,61.847,137.87,137.87 C393.87,371.37,332.023,433.217,256,433.217z"></path> </g> </g> <g> <g> <path d="M317.472,243.223l-13.926-13.926l-30.561,30.564c-5.15-2.477-10.898-3.906-16.986-3.906 c-21.725,0-39.391,17.671-39.391,39.391c0,6.087,1.428,11.834,3.902,16.985l-30.561,30.566l13.926,13.926l29.373-29.377 c6.431,4.573,14.272,7.291,22.751,7.291c21.725,0,39.391-17.671,39.391-39.391c0-8.476-2.717-16.315-7.29-22.75L317.472,243.223z M256,315.043c-10.857,0-19.696-8.833-19.696-19.696c0-10.863,8.838-19.696,19.696-19.696c10.858,0,19.696,8.833,19.696,19.696 C275.696,306.21,266.858,315.043,256,315.043z"></path> </g> </g> </g></svg>
               <span v-if="showSpans" class="flex-1 ms-3 whitespace-nowrap"
-                >Orders</span
+                >Retards</span
               >
-              <span
+              <!-- <span
                 class="inline-flex items-center justify-center w-2 h-2 p-2 text-sm font-medium text-white bg-blue-100 rounded-full dark:bg-sky-500 dark:text-white"
                 >4</span
-              >
+              > -->
             </NuxtLink>
           </li>
           <li>
@@ -117,6 +130,10 @@
               >
             </NuxtLink>
           </li>
+          <!-- <li>
+
+
+
           <NuxtLink
             to="/products"
             class="flex items-center p-2 text-gray-900 mt-5 mb-5 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -139,6 +156,7 @@
               >
             </li>
           </NuxtLink>
+          </li> -->
 
           <li>
             <NuxtLink
@@ -188,8 +206,8 @@
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink
-              to="/"
+            <button
+              @click="logout"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -205,15 +223,15 @@
                 ></path>
               </svg>
               <span v-if="showSpans" class="flex-1 ms-3 whitespace-nowrap"
-                >Sign Up</span
+                >Déconnexion</span
               >
-            </NuxtLink>
+            </button>
           </li>
         </ul>
       </div>
     </aside>
 
-    <div id="nav" class="  sm:ml-64 " :style="{ marginLeft: dynamicMargin }">
+    <nav id="nav" class="sm:ml-64" :style="{ marginLeft: dynamicMargin }">
       <div
         class="p-3 border-white dark:bg-gray-800 dark:border-white flex justify-between items-center"
       >
@@ -246,6 +264,7 @@
         <div class="flex justify-between">
           <div class="flex items-center">
             <div class="dark-mode">
+              
               <svg
                 class="dark-fill"
                 fill="#000000"
@@ -260,21 +279,30 @@
                 ></path>
               </svg>
             </div>
-            <div>
+              <div class="cadeaux" @click="showBirthdaysDetails">
               <svg
-                class="ml-5"
-                width="14px"
-                height="14px"
+              class="ml-5"
+                width="20px"
+                height="20px"
                 viewBox="0 0 24 24"
-                fill="#000000"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  class="dark-fill"
-                  d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
-                ></path>
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M19.5 7.75H18.1C18.5 7.27 18.75 6.67 18.75 6C18.75 4.48 17.52 3.25 16 3.25C14.32 3.25 12.84 4.14 12 5.46C11.16 4.14 9.68 3.25 8 3.25C6.48 3.25 5.25 4.48 5.25 6C5.25 6.67 5.5 7.27 5.9 7.75H4.5C3.81 7.75 3.25 8.31 3.25 9V11.5C3.25 12.1 3.68 12.58 4.25 12.7V19.5C4.25 20.19 4.81 20.75 5.5 20.75H18.5C19.19 20.75 19.75 20.19 19.75 19.5V12.7C20.32 12.58 20.75 12.1 20.75 11.5V9C20.75 8.31 20.19 7.75 19.5 7.75ZM19.25 11.25H12.75V9.25H19.25V11.25ZM16 4.75C16.69 4.75 17.25 5.31 17.25 6C17.25 6.69 16.69 7.25 16 7.25H12.84C13.18 5.82 14.47 4.75 16 4.75ZM8 4.75C9.53 4.75 10.82 5.82 11.16 7.25H8C7.31 7.25 6.75 6.69 6.75 6C6.75 5.31 7.31 4.75 8 4.75ZM4.75 9.25H11.25V11.25H4.75V9.25ZM5.75 12.75H11.25V19.25H5.75V12.75ZM18.25 19.25H12.75V12.75H18.25V19.25Z"
+                    fill="#ffffff"
+                  ></path>
+                </g>
               </svg>
             </div>
+            
             <div>
               <svg
                 class="dark-fill ml-5"
@@ -306,15 +334,89 @@
 
           <div class="flex justify-between items-center ml-5">
             <div>
-              <img src="https://rock-rho.vercel.app/images/avatar.png" alt="" />
+              <svg
+                width="44px"
+                height="44px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                    fill="#858585"
+                  ></path>
+                </g>
+              </svg>
             </div>
             <div>
-              <p class="dark:text-white font-bold pl-5">John Doe</p>
+              
             </div>
+            <!-- <div>
+              <button
+                @click="logout"
+                type="button"
+                class="inline-flex items-center ms-3 text-sm mt-2 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              >
+                <span class="sr-only">Logout</span>
+                <svg
+                  width="34px"
+                  height="34px"
+                  viewBox="0 0 1000 1000"
+                  data-name="Layer 2"
+                  id="Layer_2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#000000"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <defs>
+                      <style>
+                        .cls-1 {
+                          fill: none;
+                          stroke: #858585;
+                          stroke-linecap: round;
+                          stroke-miterlimit: 10;
+                          stroke-width: 22px;
+                        }
+                        .cls-2 {
+                          fill: #858585;
+                        }
+                      </style>
+                    </defs>
+                    <path
+                      class="cls-1"
+                      d="M591.61,280.48C693.9,317.86,766.91,416,766.91,531.26c0,147.41-119.5,266.91-266.91,266.91S233.09,678.67,233.09,531.26c0-115.22,73-213.4,175.3-250.78"
+                    ></path>
+                    <rect
+                      class="cls-2"
+                      height="160.61"
+                      rx="35.92"
+                      width="71.84"
+                      x="464.08"
+                      y="201.83"
+                    ></rect>
+                  </g>
+                </svg>
+              </button>
+            </div> -->
           </div>
         </div>
       </div>
-    </div>
+    </nav>
     <!-- <CardDashbord :style="{ marginLeft: dynamicMargin }" /> -->
   </div>
 </template>
@@ -330,9 +432,108 @@ export default {
       showSpans: true,
       isSidebarMinimized: false,
       dynamicMargin: "true",
+        isSidebarVisible: false,
     };
   },
   methods: {
+async showBirthdaysDetails() {
+  try {
+    const userToken = localStorage.getItem("token");
+
+    if (!userToken) {
+      console.error("Le jeton d'utilisateur est introuvable dans le localStorage");
+      return;
+    }
+
+    const response = await this.$axios.get("home/statistique", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
+    if (!response.data || !response.data.data) {
+      console.error('La réponse de l\'API est invalide :', response);
+      return;
+    }
+
+    const birthdays = response.data.data.birthdays;
+
+    console.log('Tous les anniversaires :', birthdays);
+
+    if (birthdays && birthdays.length > 0) {
+      const sortedBirthdays = birthdays.sort((a, b) => {
+        const dateA = new Date(a.date_de_naissance);
+        const dateB = new Date(b.date_de_naissance);
+        return dateA - dateB;
+      });
+
+      const upcomingBirthdays = sortedBirthdays.slice(0, 5);
+let birthdayDetails = 'Prochains anniversaires :\n\n';
+
+upcomingBirthdays.forEach((birthday) => {
+  const formattedDate = new Date(birthday.date_de_naissance).toLocaleDateString('fr-FR');
+  const firstName = birthday.prenom || 'Prénom inconnu';
+  birthdayDetails += `${birthday.name} ${firstName} - Né(e) le ${formattedDate}\n`;
+});
+
+
+
+// birthdayDetails += '</tbody></table></div>';
+
+
+      console.log('Tous les anniversaires :', birthdays);
+      console.log('Anniversaires triés :', sortedBirthdays);
+      console.log('Prochains anniversaires à venir :', upcomingBirthdays);
+
+      // birthdayDetails += '</ul>';
+
+      if (upcomingBirthdays.length > 0) {
+        alert(birthdayDetails);
+      } else {
+        alert('Aucun anniversaire d\'aujourd\'hui et à venir.');
+      }
+    } else {
+      alert('Aucun anniversaire à venir.');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des détails des anniversaires :', error.message);
+  }
+},
+
+
+
+
+
+
+
+    async logout() {
+      try {
+        const userToken = localStorage.getItem("token");
+        console.log("Valeur du jeton dans le localStorage :", userToken);
+
+        if (!userToken) {
+          console.error(
+            "Le jeton d'utilisateur est introuvable dans le localStorage"
+          );
+          return;
+        }
+
+        const response = await this.$axios.post("/auth/logout", {
+          token: userToken,
+        });
+
+        if (response.data.status === "success") {
+          console.log("Déconnexion réussie");
+
+          this.$router.push("/auth");
+        } else {
+          console.error("Échec de la déconnexion :", response.data.message);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la déconnexion :", error.message);
+      }
+    },
+
     toggleSidebar() {
       const separatorSidebar = document.getElementById("separator-sidebar");
 
@@ -343,6 +544,7 @@ export default {
         separatorSidebar.style.width = "70px";
         this.dynamicMargin = "70px";
       }
+    this.isSidebarVisible = !this.isSidebarVisible;
 
       this.isSidebarMinimized = !this.isSidebarMinimized;
       this.showSpans = !this.showSpans;
@@ -351,7 +553,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 #separator-sidebar {
   transition: width 0.9s ease;
 }
@@ -365,4 +567,32 @@ export default {
 .dark-fill {
   fill: #ffffff;
 }
+
+.birthday-container {
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.birthday-title {
+  color: #333;
+  text-align: center;
+}
+
+.birthday-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.birthday-table th, .birthday-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.birthday-table th {
+  background-color: #f2f2f2;
+}
+
 </style>

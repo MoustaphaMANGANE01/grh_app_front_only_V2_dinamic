@@ -1,9 +1,9 @@
 <template>
   <div
-    @click="toggleSidebarProp"
+    
     :style="{ marginLeft: dynamicMargin }"
     id="nav"
-    class="ml-72 p-5 bg-gray-900"
+    class=" py-20 px-2 bg-gray-900"
   >
     <div class="flex justify-start mb-10 mt-5">
       <p class="text-gray-900 dark:text-white text-2xl font-bold">
@@ -285,7 +285,7 @@
       </div>
     </div>
     <div
-      class="flex justify-between gap-4 pr-5 pb-5 flex-col sm:flex-row md:flex-row"
+      class="flex justify-between gap-4  pb-5 flex-col sm:flex-row md:flex-row"
     >
       <div
         class="bg-gray-800 w-full sm:w-1/2 md:w-1/2 h-auto rounded-xl mt-10 p-5"
@@ -340,23 +340,7 @@ export default {
   
   
   methods: {
-    toggleSidebar() {
-      const separatorSidebar = document.getElementById("separator-sidebar");
-
-      if (this.isSidebarMinimized) {
-        separatorSidebar.style.width = "270px";
-        this.dynamicMargin = "270px";
-      } else {
-        separatorSidebar.style.width = "70px";
-        this.dynamicMargin = "70px";
-      }
-
-      this.isSidebarMinimized = !this.isSidebarMinimized;
-      this.showSpans = !this.showSpans;
-    },
-    toggleSidebarProp() {
-      this.toggleSidebar();
-    },
+ 
   },
 };
 </script>

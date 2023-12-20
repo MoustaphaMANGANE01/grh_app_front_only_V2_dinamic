@@ -1,9 +1,33 @@
 <template   >
   <div class="p-28 h-full dark:bg-gray-900">
     <NuxtLink to="/employes/add">
-      <button class="bg-blue-500 mb-20 text-white px-4 py-2 rounded">
-        Ajouter
-      </button>
+        <div class="headTitle flex justify-between mb-4">
+      <div class="leftTitle">
+        <h4 class="text-2xl text-black dark:text-white">Liste des Employés</h4>
+      </div>
+      <div class="rightContent">
+        
+        <button
+          type="button"
+          class="inline-flex items-center ml-2 text-gray-500 bg-blue-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11 5C11 4.44772 10.5523 4 10 4C9.44772 4 9 4.44772 9 5V9H5C4.44772 9 4 9.44772 4 10C4 10.5523 4.44772 11 5 11H9V15C9 15.5523 9.44772 16 10 16C10.5523 16 11 15.5523 11 15V11H15C15.5523 11 16 10.5523 16 10C16 9.44772 15.5523 9 15 9H11V5Z"
+              fill="white"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
     </NuxtLink>
     <div class="shadow-md sm:rounded-lg  overflow-x-auto">
       <table
@@ -13,6 +37,8 @@
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
+                        <th scope="col" class="px-6 py-3">ID</th>
+
             <th scope="col" class="px-6 py-3">photo</th>
 
             <th scope="col" class="px-6 py-3">Prenom & Nom</th>
@@ -40,7 +66,8 @@
             v-for="(employe, index) in employes"
             :key="index"
           >
-       
+                   <td class="px-6 py-4">{{ employe.id }}</td>
+
             <td class="px-6 py-4">{{ employe.photo }}</td>
             <th
               scope="row"
@@ -65,21 +92,21 @@
             <td class="px-6 py-4">{{ employe.situation_matrimonial }}</td>
             <td class="px-6 py-4">{{ employe.nombre_enfants }}</td>
             <td class="px-6 py-4">{{ employe.type_de_contrat }}</td>
-            <td class="px-6 py-4">{{ employe.date_de_naissance }}</td>
-            <td class="px-6 py-4">{{ employe.salaire }}</td>
-            <td class="px-6 py-4">{{ employe.date_entree }}</td>
+     <td class="px-6 py-4">{{ formatDisplayDate(employe.date_de_naissance) }}</td>
+      <td class="px-6 py-4">{{ employe.salaire }}</td>
+      <td class="px-6 py-4">{{ formatDisplayDate(employe.date_entree) }}</td>
             <td class="px-6 py-4">{{ employe.solde_points }}</td>
             <td class="px-6 py-4">{{ employe.solde_conges }}</td>
 <td class="px-6 py-4 relative" @click="toggleDropdown(employe.id)">
     <img :src="require(`@/assets/svg/menu.svg`)" alt="" />
     <div v-if="showDropdown[employe.id]" class="dropdown font-bold bg-white p-5 border rounded -ml-10 z-index-10 shadow-xl" @click.stop>
-      <NuxtLink :to="`/employe/show/${employe.id}`">
+      <NuxtLink :to="`/Employes/show/${employe.id}`">
         <button>Voir</button>
       </NuxtLink>
-      <NuxtLink :to="`/employe/edit/${employe.id}`">
+      <NuxtLink :to="`/employes/edit/${employe.id}`">
         <button>Modifier</button>
       </NuxtLink>
-      <button @click="deleteEmploye(employe.id)">Supprimer</button>
+      <button  @click="deleteEmploye(employe.id)">Supprimer</button>
     </div>
   </td>
 
@@ -171,6 +198,9 @@ export default {
     };
   },
   methods: {
+      formatDisplayDate(date) {
+      return new Date(date).toLocaleDateString("fr-FR");
+    },
 async fetchEmployes() {
   try {
     if (process.client) {
@@ -210,9 +240,34 @@ async fetchEmployes() {
   this.$set(this.showDropdown, employeId, !this.showDropdown[employeId]);
 },
 
+async deleteEmploye(employeId) {
+      try {
+        const token = localStorage.getItem("token");
 
-    deleteEmploye() {
+        if (!token) {
+          console.error("No authToken available. Make sure the user is authenticated.");
+          return;
+        }
+
+        const apiUrl = process.env.VUE_APP_API_URL || "http://127.0.0.1:8000";
+
+        const response = await axios.delete(`${apiUrl}/api/v1/employes/delete/${employeId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 200) {
+          console.log("Employer deleted successfully");
+          this.fetchEmployes();
+        } else {
+          console.error("API Error. Status:", response.status);
+        }
+      } catch (error) {
+        console.error("Error deleting employer", error);
+      }
     },
+
   },
   fetch() {
     this.fetchEmployes();

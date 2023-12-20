@@ -5,7 +5,7 @@
     >
       <div class="px-2 py-5 sm:px-6 bg-gray-900 flex justify-center rounded-xl">
         <h2 class="md:text-2xl sm:text-sm leading-6 font-bold text-white">
-          Enregistrer l'Absence d'un employé
+          Enregistrer le retard d'un employé
         </h2>
       </div>
       <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -43,7 +43,7 @@
                 <label
                   for="prenom"
                   class="block text-sm font-semibold text-gray-100"
-                  >Motifs de l'absence</label
+                  >Motifs de l'retard</label
                 >
                 <input
                   v-model="motif"
@@ -78,10 +78,10 @@
                 <label
                   for="phone"
                   class="block text-sm font-semibold text-gray-100"
-                  >Date de début</label
+                  >Heure attendu</label
                 >
                 <input
-                  v-model="date_debut"
+                  v-model="date_heure_attendue"
                   type="date"
                   name="telephone"
                   id="phone"
@@ -93,10 +93,10 @@
                 <label
                   for="adresse"
                   class="block text-sm font-semibold text-gray-100"
-                  >Date de fin</label
+                  >Heure d'Arrivée</label
                 >
                 <input
-                  v-model="date_fin"
+                  v-model="date_heure_arrivee"
                   type="date"
                   name="adresse"
                   id="adresse"
@@ -143,20 +143,18 @@ export default {
       selectedEmploye: null,
       // justifie: "",
       motif: "",
-      points_perdues:  0.5,
+      points_perdues:  0.25,
 
-      date_debut: "",
-      date_fin: "",
+     date_heure_attendue: "",
+      date_heure_arrivee: "",
       error: null,
     };
   },
   computed: {
     defaultPointsPerdus() {
-      return 0.5;
+      return 0.25;
     },
-    points_perdues() {
-      return this.defaultPointsPerdus;
-    },
+    
   },
   methods: {
     async fetchEmployes() {
@@ -188,56 +186,53 @@ export default {
         console.error("Error fetching employés from the API", error);
       }
     },
-    async submitForm() {
-      try {
-        await this.fetchEmployes();
+   async submitForm() {
+  try {
+    await this.fetchEmployes();
 
-        const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-        if (!token) {
-          console.error(
-            "No authToken available. Make sure the user is authenticated."
-          );
-          return;
-        }
+    if (!token) {
+      console.error("No authToken available. Make sure the user is authenticated.");
+      return;
+    }
 
-        const apiUrl = process.env.VUE_APP_API_URL || "http://127.0.0.1:8000";
+    const apiUrl = process.env.VUE_APP_API_URL || "http://127.0.0.1:8000";
 
-        const response = await axios.post(
-          `${apiUrl}/api/v1/absences/store`,
-          {
-            employes_id: this.selectedEmploye,
-            date_debut: this.date_debut,
-            date_fin: this.date_fin,
-            points_perdues: this.points_perdues,
-            motif: this.motif,
-            // justifie:this.justifie,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (response.status === 200 && response.data.status === "success") {
-          console.log("Absence enregistrée avec succès");
-          this.selectedEmploye = null;
-          // this.justifie = "";
-          this.motif = "";
-          this.date_debut = "";
-          this.date_fin = "";
-          this.points_perdues = "";
-        } else {
-          console.error("API Error. Status:", response.status);
-          this.$router.push({ name: "Absence" });
-        }
-      } catch (error) {
-        console.error("Error submitting form", error);
-        this.error =
-          "Une erreur s'est produite lors de l'enregistrement de l'absence.";
+    const response = await axios.post(
+      `${apiUrl}/api/v1/retards/store`,
+      {
+        employes_id: this.selectedEmploye,
+        date_heure_attendue: this.date_heure_attendue, 
+        date_heure_arrivee: this.date_heure_arrivee,    
+        points_perdues: this.points_perdues,        
+        justifie: this.justifie,
+          motif: this.motif,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    },
+    );
+
+    if (response.status === 200 && response.data.status === "success") {
+      console.log("Retard enregistré avec succès");
+      this.selectedEmploye = null;
+      this.motif = "";
+      this.date_debut = "";
+      this.date_fin = "";
+      this.points_perdues = "";
+    } else {
+      console.error("API Error. Status:", response.status);
+      this.$router.push({ name: "retards" });
+    }
+  } catch (error) {
+    console.error("Error submitting form", error);
+    this.error = "Une erreur s'est produite lors de l'enregistrement du retard.";
+  }
+},
+
   },
   mounted() {
     this.fetchEmployes();

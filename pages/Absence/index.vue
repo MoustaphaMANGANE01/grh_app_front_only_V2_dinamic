@@ -1,25 +1,48 @@
 <template>
-  <div class="p-28 h-full dark:bg-gray-900">
-    <!-- Bouton pour ajouter une absence -->
-    <NuxtLink to="/Absence/add">
-      <button class="bg-blue-500 mb-20 text-white px-4 py-2 rounded">
-        Ajouter
-      </button>
-    </NuxtLink>
+<div class="p-4  lg:p-28 sm:pt-20 sm:pl-20 md:pl-20 h-full dark:bg-gray-900">
+    <div class="headTitle flex flex-col lg:flex-row mt-20 justify-between mb-4">
+      <div class="leftTitle mb-2 lg:mb-0">
+        <h4 class="text-2xl text-black dark:text-white">Liste des Employés Absents</h4>
+      </div>
+      <div class="rightContent flex">
+        <NuxtLink to="/Absence/add">
+          <button
+            type="button"
+            class="inline-flex items-center ml-2 text-gray-500 bg-blue-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11 5C11 4.44772 10.5523 4 10 4C9.44772 4 9 4.44772 9 5V9H5C4.44772 9 4 9.44772 4 10C4 10.5523 4.44772 11 5 11H9V15C9 15.5523 9.44772 16 10 16C10.5523 16 11 15.5523 11 15V11H15C15.5523 11 16 10.5523 16 10C16 9.44772 15.5523 9 15 9H11V5Z"
+              fill="white"
+            ></path>
+          </svg>
+        </button>
+          </NuxtLink>
+      </div>
+    </div>
+  
 
-    <!-- Tableau pour afficher les absences -->
-    <div class="shadow-md sm:rounded-lg">
+    <div class="shadow-md overflow-x-auto sm:rounded-lg">
       <table
-        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        class="w-full table-auto  rounded-xl text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
       >
-        <!-- En-tête du tableau -->
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
+                      <th scope="col" class="px-6 py-3">ID</th>
+
             <th scope="col" class="px-6 py-3">Prenom et Nom</th>
             <th scope="col" class="px-6 py-3">Motif</th>
-            <th scope="col" class="px-6 py-3">Justification</th>
+<!-- :            <th scope="col" class="px-6 py-3">Justification</th> -->
             <th scope="col" class="px-6 py-3">Date de debut</th>
             <th scope="col" class="px-6 py-3">Date de Fin</th>
             <th scope="col" class="px-6 py-3">Point perdue</th>
@@ -34,46 +57,43 @@
             v-for="(absence, index) in absences"
             :key="index"
           >
+                      <td class="px-6 py-4">{{ absence.id }}</td>
+
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              {{ absence.prenom }} {{ absence.nom }}
+              {{ absence.prenom }} {{ absence.name}}
             </th>
             <td class="px-6 py-4">{{ absence.motif }}</td>
-            <td class="px-6 py-4">{{ absence.justifie }}</td>
+            <!-- <td class="px-6 py-4">{{ absence.justifie }}</td> -->
             <td class="px-6 py-4">{{ absence.date_debut }}</td>
             <td class="px-6 py-4">{{ absence.date_fin }}</td>
             <td class="px-6 py-4">{{ absence.points_perdues }}</td>
             <!-- Actions avec un menu déroulant -->
-            <td class="px-6 py-4 relative" @click="toggleDropdown">
-              <img :src="require(`@/assets/svg/menu.svg`)" alt="" />
-              <div v-if="showDropdown" class="dropdown font-semibold">
-                <NuxtLink :to="`/Absence/show/${absence.id}`">
-                  <button>Voir</button>
-                </NuxtLink>
-                <NuxtLink :to="`/Absence/edit/${absence.id}`">
-                  <button>Modifier</button>
-                </NuxtLink>
-                <button @click="deleteAbsence">Supprimer</button>
-              </div>
-            </td>
+           <td class="px-6 py-4 relative">
+    <img
+      @click="toggleDropdown(absence.id)"
+      :src="require(`@/assets/svg/menu.svg`)"
+      alt=""
+      class="cursor-pointer"
+    />
+    <div v-if="showDropdown[absence.id]" class="dropdown font-semibold">
+      <NuxtLink :to="`/Absence/show/${absence.id}`">
+        <button @click="toggleDropdown(absence.id)">Voir</button>
+      </NuxtLink>
+      <NuxtLink :to="`/Absence/edit/${absence.id}`">
+        <button @click="toggleDropdown(absence.id)">Modifier</button>
+      </NuxtLink>
+      <button @click="deleteAbsence(absence.id)">Supprimer</button>
+    </div>
+  </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Formulaire pour ajouter une absence -->
-    <form v-if="showAddForm" class="max-w-md mx-auto" @submit.prevent="addAbsence">
-      <!-- Champs pour les détails de l'absence -->
-      <!-- ... -->
-      <button
-        type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Submit
-      </button>
-    </form>
+  
   </div>
 </template>
 
@@ -84,9 +104,8 @@ export default {
   data() {
     return {
       absences: [],
-      showDropdown: false,
-      showAddForm: false,
-      absenceDetails: {
+    showDropdown: {},
+          absenceDetails: {
         employes_id: '',
         date_debut: '',
         date_fin: '',
@@ -99,7 +118,6 @@ export default {
     this.fetchData();
   },
   methods: {
-    // Fonction pour récupérer les données des absences
     async fetchData() {
       try {
         const token = localStorage.getItem("token");
@@ -124,51 +142,47 @@ export default {
         console.error("Error fetching data from the API", error);
       }
     },
-    // Fonction pour supprimer une absence
-    async deleteAbsence() {
-      try {
-        let token = null;
+  async deleteAbsence(absenceId) {
+  try {
+    let token = null;
 
-        if (process.client) {
-          token = localStorage.getItem("token");
-        }
+    if (process.client) {
+      token = localStorage.getItem("token");
+    }
 
-        if (!token) {
-          console.error(
-            "No authToken available. Make sure the user is authenticated."
-          );
-          return {};
-        }
+    if (!token || !absenceId) {
+      console.error("Invalid token or absence ID");
+      return;
+    }
 
-        const response = await axios.delete(
-          `http://127.0.0.1:8000/api/v1/absences/destroy/${this.absenceDetails.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        console.log("Absence supprimée avec succès:", response.data);
-        // Rediriger l'utilisateur vers la page d'accueil ou une autre page si nécessaire
-
-      } catch (error) {
-        console.error("Erreur lors de la suppression de l'absence", error);
-        // Gérer les erreurs et donner un retour à l'utilisateur si nécessaire
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/api/v1/absences/delete/${absenceId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    },
+    );
 
-    // Fonction pour basculer l'affichage du menu déroulant
-    toggleDropdown() {
-      this.showDropdown = !this.showDropdown;
-    },
+    if (response.status === 200) {
+      console.log("Absence deleted successfully");
+      this.fetchData();
+    } else {
+      console.error("API Error. Status:", response.status);
+    }
+  } catch (error) {
+    console.error("Error deleting absence", error);
+  }
+}
+,
 
-    // Fonction pour basculer l'affichage du formulaire d'ajout
-    toggleAddForm() {
-      this.showAddForm = !this.showAddForm;
-    },
+  toggleDropdown(absenceId) {
+    this.$set(this.showDropdown, absenceId, !this.showDropdown[absenceId]);
+  },
 
-    // Fonction pour ajouter une absence
+
+   
+
     async addAbsence() {
       try {
         let token = null;

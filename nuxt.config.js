@@ -22,6 +22,11 @@ export default {
         path: '/Absence/show/:id',
         component: resolve(__dirname, 'pages/Absence/show_id.vue'),
       });
+      routes.push({
+        name: 'employe-show-id',
+        path: '/Employes/show/:id',
+        component: resolve(__dirname, 'pages/Employes/show_id.vue'),
+      });
 
       routes.push({
         name: 'absence-edit-id',
