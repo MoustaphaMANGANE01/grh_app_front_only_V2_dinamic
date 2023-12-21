@@ -1,5 +1,5 @@
 <template>
-  <div class="py-20 px-20 mx-auto bg-gray-900 sm:px-0 sm:w-full md:p-0">
+  <div class="py-20 px-20 mx-auto bg-gray-900 sm:px-0 sm:w-full md:p-0 lg:p-20">
     <div class="headTitle flex justify-between mb-4">
       <div class="leftTitle">
         <h4 class="text-2xl text-black dark:text-white">Profile</h4>

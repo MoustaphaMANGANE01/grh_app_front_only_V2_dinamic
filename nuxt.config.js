@@ -48,6 +48,7 @@ export default {
     {
       src: "~/plugins/hchs-vue-charts", ssr: false
     },
+    { src: '~/plugins/darkMode.js', mode: 'client' },
 
   ],
 

@@ -152,7 +152,6 @@ export default {
       }
     },
 
-    // Méthode pour formater la date
     formatDate(dateString) {
       if (!dateString) return 'N/A';
 

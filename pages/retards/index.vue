@@ -1,7 +1,9 @@
 <template>
- <div class="p-4  lg:p-28 sm:pt-20 sm:pl-20 md:pl-20 h-full dark:bg-gray-900  ml-20 ">
+  <div
+    class="p-4 lg:p-28 sm:pt-20 sm:pl-20 md:pl-20 h-full dark:bg-gray-900 ml-20"
+  >
     <div class="headTitle flex flex-col lg:flex-row mt-20 justify-between mb-4">
-      <div class="leftTitle ">
+      <div class="leftTitle">
         <h4 class="text-2xl text-black dark:text-white">
           Liste des Employés Retards
         </h4>
@@ -31,16 +33,15 @@
       </div>
     </div>
 
-   
     <div class="shadow-md overflow-x-auto sm:rounded-lg">
       <table
-        class="w-full table-auto  rounded-xl text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        class="w-full table-auto rounded-xl text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
       >
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
-                        <th scope="col" class="px-6 py-3">ID</th>
+            <th scope="col" class="px-6 py-3">ID</th>
 
             <th scope="col" class="px-6 py-3">Prenom et Nom</th>
             <th scope="col" class="px-6 py-3">Motif</th>
@@ -53,14 +54,13 @@
           </tr>
         </thead>
 
-        <!-- Corps du tableau avec les données des retards -->
         <tbody>
           <tr
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             v-for="(retard, index) in retards"
             :key="index"
           >
-  <td class="px-6 py-4">{{ retard.id ? retard.id : 'N/A' }}</td>
+<td class="px-6 py-4">{{ retard && retard.id ? retard.id : "N/A" }}</td>
 
             <th
               scope="row"
@@ -71,12 +71,15 @@
             <td class="px-6 py-4">{{ retard.motif }}</td>
             <!-- <td class="px-6 py-4">{{ retard.justifie }}</td> -->
             <!-- <td class="px-6 py-4">{{ retard.expected_arrival_time }}</td> -->
-            <td class="px-6 py-4">{{ retard.expected_arrival_time }}</td>
-            <td class="px-6 py-4">{{ retard.actual_arrival_time }}</td>
+            <td class="px-6 py-4">
+              {{ formatDate(retard.expected_arrival_time) }}
+            </td>
+            <td class="px-6 py-4">
+              {{ formatDate(retard.actual_arrival_time) }}
+            </td>
+            <td class="px-6 py-4">{{ formatDate(retard.late_minutes) }}</td>
 
-            <td class="px-6 py-4">{{ retard.late_minutes }}</td>
             <td class="px-6 py-4">{{ retard.points_perdues }}</td>
-            <!-- Actions avec un menu déroulant -->
             <td class="px-6 py-4 relative">
               <img
                 @click="toggleDropdown(retard.id)"
@@ -108,46 +111,65 @@
 export default {
   data() {
     return {
-      retards: [],
-      retardDetails: {
-        employes_id: null,
-        expected_arrival_time: null,
-        actual_arrival_time: null,
-        late_minutes: null,
-        points_perdues: null,
-      },
-      showDropdown: {},
+        retards: [],
+      employes: [],
+      selectedEmploye: null,
+      motif: "",
+      points_perdues: 0.25,
+      date_heure_attendue: "",
+      date_heure_arrivee: "",
+      late_minutes: "",
+      error: null,
+      retardDetails: {},
+        showDropdown: {},
     };
   },
+
   mounted() {
     console.log("Component is mounted");
     this.fetchData();
   },
   methods: {
     async fetchData() {
-  try {
-    const token = localStorage.getItem("token");
+      try {
+        const token = localStorage.getItem("token");
 
-    if (!token) {
-      console.error("No authToken available. Make sure the user is authenticated.");
-      return;
-    }
+        if (!token) {
+          console.error(
+            "No authToken available. Make sure the user is authenticated."
+          );
+          return;
+        }
 
-    const response = await this.$axios.get("http://127.0.0.1:8000/api/v1/retards/list", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+        const response = await this.$axios.get(
+          "http://127.0.0.1:8000/api/v1/retards/list",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-    console.log("Retards from API:", response.data.retards);
+        console.log("Retards from API:", response.data.retards.data);
 
-    this.retards = response.data.retards.data;
-console.log(retards);
-  } catch (error) {
-    console.error("Error fetching data from the API", error);
-  }
-},
+        this.retards = response.data.retards.data;
+        console.log(retards);
+      } catch (error) {
+        console.error("Error fetching data from the API", error);
+      }
+    },
+    formatDate(value) {
+      if (value === undefined || value === null || value === "") return "N/A";
 
+      if (typeof value === "number") {
+        const hours = Math.floor(value / 60);
+        const minutes = value % 60;
+        return `${hours}h ${minutes}min`;
+      }
+
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return new Date(value).toLocaleDateString("fr-FR", options);
+    },
 
     async deleteRetard(retardId) {
       try {
@@ -158,13 +180,19 @@ console.log(retards);
           return;
         }
 
-        const response = await this.$axios.delete(`retards/delete/${retardId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await this.$axios.delete(
+          `retards/delete/${retardId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-        if (response.status === 200 && response.data.message === "Retard deleted successfully") {
+        if (
+          response.status === 200 &&
+          response.data.message === "Retard deleted successfully"
+        ) {
           console.log("Retard deleted successfully");
           this.fetchData();
         } else {
@@ -180,15 +208,21 @@ console.log(retards);
         const token = localStorage.getItem("token");
 
         if (!token) {
-          console.error("No authToken available. Make sure the user is authenticated.");
+          console.error(
+            "No authToken available. Make sure the user is authenticated."
+          );
           return;
         }
 
-        const response = await this.$axios.post("http://127.0.0.1:8000/api/v1/retards/store", this.retardDetails, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await this.$axios.post(
+          "http://127.0.0.1:8000/api/v1/retards/store",
+          this.retardDetails,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         console.log("Retard ajouté avec succès:", response.data);
         this.retardDetails = {
