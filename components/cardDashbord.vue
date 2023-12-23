@@ -4,7 +4,7 @@
     id="nav"
     class="py-20 px-2"
     :class="{ 'bg-gray-900': isDarkMode, 'bg-gray-100': !isDarkMode }"
-  >
+  v-if="user.role == 'admin'">
     <div class="flex justify-start mb-10 mt-5">
       <p
         class="text-2xl font-bold"
@@ -26,7 +26,7 @@
                         </div>
                         <div class="flex gap-2 md:gap-4 justify-between items-center">
                             <div class="flex flex-col space-y-4">
-                                <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Salaire net des Employés</h2>
+                                <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Masss Salariale</h2>
                                 <div class="flex items-center gap-4">
                                     <p class="text-lg text-gray-600 tracking-wider">F CFA {{ salaireNetEmployes }}</p>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
@@ -42,14 +42,14 @@
                             </h2>
                         </div>
                         <div class="flex gap-2 md:gap-4">
-                            <a href="#"
+                            <NuxtLink to="/Employes/bs"
                                 class="bg-sky-500 px-5 py-3 w-full text-center md:w-auto rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-600">
                                 Bulletin de Salaire
-                            </a>
-                            <a href="#"
+                            </NuxtLink>
+                            <NuxtLink to="/"
                                 class="bg-blue-50 px-5 py-3 w-full text-center md:w-auto rounded-lg text-blue-600 text-xs tracking-wider font-semibold hover:bg-blue-600 hover:text-white">
                                 Historique de Réception
-                            </a>
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -390,6 +390,7 @@ export default {
       showSpans: true,
       isSidebarMinimized: false,
       dynamicMargin: "true",
+      user:{}
     };
   },
 
@@ -400,24 +401,28 @@ export default {
     },
     nombreEmployes: {
       type: Number,
-     
+    default:"0"
     },
      nombreEmployesAbscent: {
       type: Number,
-     
+      default:"0"
     },
     employésPresents: {
       type: Number,
-      
+        default:"0"
     },
-    
+       
+ 
+
   methods: {
     initializeDarkMode() {
       this.$store.dispatch('darkMode/initializeDarkMode');
     },
   },
   },
-  
+   mounted() {
+    this.me();
+  },
   
   methods: {
     toggleDarkMode() {
@@ -426,7 +431,41 @@ export default {
       const isDarkMode = document.body.classList.contains('dark-mode');
       localStorage.setItem('darkMode', isDarkMode);
     },
+ async me() {
+      try {
+        const userToken = localStorage.getItem("token");
 
+        if (!userToken) {
+          console.error(
+            "Le jeton d'utilisateur est introuvable dans le localStorage"
+          );
+          return;
+        }
+
+        const response = await this.$axios.get(
+          "http://127.0.0.1:8000/api/v1/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
+
+        console.log("Response Status:", response.status);
+        console.log("Response Data:", response.data.status);
+
+        if (response.data.status == "success") {
+          const rp = response.data.data;
+          this.user = rp
+          console.log("Récupération réussie");
+          // this.$router.push("/index");
+        } else {
+          console.error("Échec de la récupération :", response.data.message);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+      }
+    },
      checkDarkModePreference() {
   if (typeof localStorage !== 'undefined') {
     const isDarkMode = localStorage.getItem('darkMode') === 'true';

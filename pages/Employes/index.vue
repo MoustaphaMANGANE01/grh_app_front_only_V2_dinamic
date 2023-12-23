@@ -3,14 +3,17 @@
     <NuxtLink to="/employes/add">
       <div class="headTitle flex justify-between mb-4">
         <div class="leftTitle">
-          <h4 class="text-2xl text-black dark:text-white">
+          <h4
+            class="text-2xl font-bold"
+            :class="{ 'text-gray-800': !isDarkMode, 'text-white': isDarkMode }"
+          >
             Liste des Employés
           </h4>
         </div>
         <div class="rightContent">
           <button
             type="button"
-            class="inline-flex items-center ml-2 text-gray-500 bg-blue-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
+            class="inline-flex items-center ml-2 text-gray-500 bg-cyan-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-cyan-500 dark:text-white dark:hover:bg-gray-700"
           >
             <svg
               width="20"
@@ -32,10 +35,15 @@
     </NuxtLink>
     <div class="shadow-md sm:rounded-lg overflow-x-auto">
       <table
-        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        class="w-full text-sm text-left rtl:text-right"
+        :class="{ 'text-white': !isDarkMode, 'text-gray-400': isDarkMode }"
       >
         <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          class="text-xs uppercase"
+          :class="{
+            'text-white bg-cyan-500': !isDarkMode,
+            'bg-gray-700 text-gray-400 ': isDarkMode,
+          }"
         >
           <tr>
             <th scope="col" class="px-6 py-3">ID</th>
@@ -63,7 +71,11 @@
         </thead>
         <tbody>
           <tr
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            class="border-b "
+            :class="{
+              'bg-white hover:bg-cyan-200 text-cyan-500': !isDarkMode,
+              'border-gray-700 bg-gray-800 hover:bg-gray-600': isDarkMode,
+            }"
             v-for="(employe, index) in employes"
             :key="index"
           >
@@ -72,7 +84,11 @@
             <td class="px-6 py-4">{{ employe.photo }}</td>
             <th
               scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="px-6 py-4 font-medium  whitespace-nowrap "
+              :class="{
+                'text-white': isDarkMode,
+                'text-cyan-500': !isDarkMode,
+              }"
             >
               {{ employe.prenom }} {{ employe.name }}
             </th>
@@ -110,7 +126,8 @@
               />
               <div
                 v-if="showDropdown[employe.id]"
-                class="dropdown font-bold bg-white p-5 border rounded -ml-10 z-index-10 shadow-xl"
+                class="dropdown font-bold p-5 border rounded -ml-10 z-index-10 shadow-xl"
+                :class="{ 'bg-white': isDarkMode, 'bg-gray-100': !isDarkMode }"
                 @click.stop
               >
                 <NuxtLink :to="`/Employes/show/${employe.id}`">
@@ -119,78 +136,15 @@
                 <NuxtLink :to="`/employes/edit/${employe.id}`">
                   <button>Modifier</button>
                 </NuxtLink>
+<NuxtLink :to="`/employes/bs/${employe.id}`">
+                  <button>Bulletin</button>
+                </NuxtLink>
                 <button @click="deleteEmploye(employe.id)">Supprimer</button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <!-- <nav
-        class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-        aria-label="Table navigation"
-      >
-        <span
-          class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
-          >Showing
-          <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-          of
-          <span class="font-semibold text-gray-900 dark:text-white"
-            >1000</span
-          ></span
-        >
-        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >Previous</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >1</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >2</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-              >3</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >4</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >5</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >Next</a
-            >
-          </li>
-        </ul>
-      </nav> -->
     </div>
   </div>
 </template>
@@ -200,12 +154,18 @@
 
 <script>
 import axios from "axios";
+import ModalBulletinDeSalaire from "~/components/ModalBulletinDeSalaire.vue";
 
 export default {
+  components: {
+    ModalBulletinDeSalaire,
+  },
   data() {
     return {
       employes: [],
       showDropdown: {},
+      isDarkMode: false,
+      showModal: false,
     };
   },
   methods: {

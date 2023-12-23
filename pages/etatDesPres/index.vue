@@ -1,16 +1,16 @@
 <template>
 <div class="p-4  lg:p-28 sm:pt-20 sm:pl-20 md:pl-20 h-full dark:bg-gray-900">
-    <div class="headTitle flex flex-col lg:flex-row mt-20 justify-between mb-4">
+    <div class="headTitle flex flex-col lg:flex-row mt-0 justify-between mb-4">
       <div class="leftTitle mb-2 lg:mb-0">
-        <h4 class="text-2xl "
+        <h4 class="text-2xl font-bold"
                     :class="{ 'text-gray-800': !isDarkMode, 'text-white': isDarkMode }"
->Liste des Employés Absents</h4>
+>Liste des Prés</h4>
       </div>
       <div class="rightContent flex">
-        <NuxtLink to="/Absence/add">
+        <NuxtLink to="/etatDesPres/add">
           <button
             type="button"
-            class="inline-flex items-center ml-2 text-gray-500 bg-cyan-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
+            class="inline-flex items-center ml-2 text-gray-500 bg-cyan-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-cyan-500 dark:text-white dark:hover:bg-gray-700"
           >
             <svg
               width="20"
@@ -48,16 +48,16 @@
                       <th scope="col" class="px-6 py-3">ID</th>
 
             <th scope="col" class="px-6 py-3">Prenom et Nom</th>
-            <th scope="col" class="px-6 py-3">Motif</th>
-<!-- :            <th scope="col" class="px-6 py-3">Justification</th> -->
-            <th scope="col" class="px-6 py-3">Date de debut</th>
-            <th scope="col" class="px-6 py-3">Date de Fin</th>
-            <th scope="col" class="px-6 py-3">Point perdue</th>
+            <th scope="col" class="px-6 py-3">Montant demandé</th>
+            <th scope="col" class="px-6 py-3">Date de la demande </th>
+            <th scope="col" class="px-6 py-3">Date de Remboursement </th>
+            <th scope="col" class="px-6 py-3">Montant Remboursé </th>
+            <th scope="col" class="px-6 py-3">Montant Réstant </th>
+     
             <th scope="col" class="px-6 py-3">Action</th>
           </tr>
         </thead>
 
-        <!-- Corps du tableau avec les données des absences -->
         <tbody>
           <tr
             class="border-b "
@@ -65,10 +65,10 @@
               'bg-white hover:bg-cyan-200 text-cyan-500': !isDarkMode,
               'border-gray-700 bg-gray-800 hover:bg-gray-600': isDarkMode,
             }"
-            v-for="(absence, index) in absences"
+            v-for="(etatDesPres, index) in etatDesPres"
             :key="index"
           >
-                      <td class="px-6 py-4">{{ absence.id }}</td>
+                      <td class="px-6 py-4">{{ etatDesPres.id }}</td>
 
             <th
               scope="row"
@@ -78,29 +78,29 @@
               'border-gray-700 bg-gray-800 hover:bg-gray-600': isDarkMode,
             }"
             >
-              {{ absence.prenom }} {{ absence.name}}
+              {{ etatDesPres.name}}    {{ etatDesPres.prenom}}
             </th>
-            <td class="px-6 py-4">{{ absence.motif }}</td>
-            <!-- <td class="px-6 py-4">{{ absence.justifie }}</td> -->
-            <td class="px-6 py-4">{{ absence.date_debut }}</td>
-            <td class="px-6 py-4">{{ absence.date_fin }}</td>
-            <td class="px-6 py-4">{{ absence.points_perdues }}</td>
-            <!-- Actions avec un menu déroulant -->
+            <td class="px-6 py-4">{{ etatDesPres.montant_demande }}</td>
+            <td class="px-6 py-4">{{ etatDesPres.date_de_la_demande }}</td>
+            <td class="px-6 py-4">{{ etatDesPres.date_de_remboursement }}</td>
+            <td class="px-6 py-4">{{ etatDesPres.montant_rembourse }}</td>
+            <td class="px-6 py-4">{{ etatDesPres.montant_restant }}</td>
+
            <td class="px-6 py-4 relative">
     <img
-      @click="toggleDropdown(absence.id)"
+      @click="toggleDropdown(etatDesPres.id)"
       :src="require(`@/assets/svg/menu.svg`)"
       alt=""
       class="cursor-pointer"
     />
-    <div v-if="showDropdown[absence.id]" class="dropdown font-semibold">
-      <NuxtLink :to="`/Absence/show/${absence.id}`">
-        <button @click="toggleDropdown(absence.id)">Voir</button>
+    <div v-if="showDropdown[etatDesPres.id]" class="dropdown font-semibold">
+      <NuxtLink :to="`/etatDesPres/show/${etatDesPres.id}`">
+        <button @click="toggleDropdown(etatDesPres.id)">Voir</button>
       </NuxtLink>
-      <NuxtLink :to="`/Absence/edit/${absence.id}`">
-        <button @click="toggleDropdown(absence.id)">Modifier</button>
+      <NuxtLink :to="`/etatDesPres/edit/${etatDesPres.id}`">
+        <button @click="toggleDropdown(etatDesPres.id)">Modifier</button>
       </NuxtLink>
-      <button @click="deleteAbsence(absence.id)">Supprimer</button>
+      <button @click="deleteetatDesPres(etatDesPres.id)">Supprimer</button>
     </div>
   </td>
           </tr>
@@ -119,13 +119,18 @@ export default {
   data() {
     return {
       isDarkMode:false,
-      absences: [],
+      etatDesPres: [],
     showDropdown: {},
-          absenceDetails: {
-        employes_id: '',
-        date_debut: '',
-        date_fin: '',
-        points_perdues: '',
+    
+          etatDesPres: {
+        employe_id: '',
+        montant_demande: '',
+        date_de_la_demande: '',
+        montant_rembourse: '',
+        montant_demande: '',
+        montant_restant: '',
+
+     
       },
     };
   },
@@ -140,25 +145,25 @@ export default {
 
         if (!token) {
           console.error(
-            "No authToken available. Make sure the user is authenticated."
+            "No authToken available. Make sure the etatDesPres is authenticated."
           );
           return;
         }
 
         const apiUrl = process.env.VUE_APP_API_URL || "http://127.0.0.1:8000";
 
-        const response = await axios.get(`${apiUrl}/api/v1/absences/list`, {
+        const response = await axios.get(`${apiUrl}/api/v1/etats/list`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        this.absences = response.data.data.absences;
+console.log(response.data.data);
+        this.etatDesPres = response.data.data;
       } catch (error) {
         console.error("Error fetching data from the API", error);
       }
     },
-  async deleteAbsence(absenceId) {
+  async deleteetatDesPres(etatDesPresId) {
   try {
     let token = null;
 
@@ -166,13 +171,13 @@ export default {
       token = localStorage.getItem("token");
     }
 
-    if (!token || !absenceId) {
-      console.error("Invalid token or absence ID");
+    if (!token || !etatDesPresId) {
+      console.error("Invalid token or etatDesPres ID");
       return;
     }
 
     const response = await axios.delete(
-      `http://127.0.0.1:8000/api/v1/absences/delete/${absenceId}`,
+      `http://127.0.0.1:8000/api/v1/etatDesPres/delete/${etatDesPresId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -181,25 +186,25 @@ export default {
     );
 
     if (response.status === 200) {
-      console.log("Absence deleted successfully");
+      console.log("etatDesPres deleted successfully");
       this.fetchData();
     } else {
       console.error("API Error. Status:", response.status);
     }
   } catch (error) {
-    console.error("Error deleting absence", error);
+    console.error("Error deleting etatDesPres", error);
   }
 }
 ,
 
-  toggleDropdown(absenceId) {
-    this.$set(this.showDropdown, absenceId, !this.showDropdown[absenceId]);
+  toggleDropdown(etatDesPresId) {
+    this.$set(this.showDropdown, etatDesPresId, !this.showDropdown[etatDesPresId]);
   },
 
 
    
 
-    async addAbsence() {
+    async addetatDesPres() {
       try {
         let token = null;
 
@@ -209,24 +214,23 @@ export default {
 
         if (!token) {
           console.error(
-            "No authToken available. Make sure the user is authenticated."
+            "No authToken available. Make sure the etatDesPres is authenticated."
           );
           return {};
         }
 
-        const employesId = this.absenceDetails.employes_id;
-        const dateDebut = this.absenceDetails.date_debut;
-        const dateFin = this.absenceDetails.date_fin;
-        const pointsPerdus = this.absenceDetails.points_perdues;
+        const employesId = this.etatDesPresDetails.employe_id;
+        const dateDebut = this.etatDesPresDetails.date_debut;
+        const dateFin = this.etatDesPresDetails.date_fin;
+        const pointsPerdus = this.etatDesPresDetails.points_perdues;
 
         const response = await axios.post(
-          `http://127.0.0.1:8000/api/v1/absences/store`,
+          `http://127.0.0.1:8000/api/v1/etatDesPress/store`,
           {
             employes_id: employesId,
             date_debut: dateDebut,
             date_fin: dateFin,
             points_perdues: pointsPerdus,
-            // Ajouter d'autres champs selon vos besoins
           },
           {
             headers: {
@@ -235,11 +239,10 @@ export default {
           }
         );
 
-        console.log("Absence ajoutée avec succès:", response.data);
+        console.log("etatDesPres ajoutée avec succès:", response.data);
 
       } catch (error) {
-        console.error("Erreur lors de l'ajout de l'absence", error);
-        // Gérer les erreurs et donner un retour à l'utilisateur si nécessaire
+        console.error("Erreur lors de l'ajout de l'etatDesPres", error);
       }
     },
   },

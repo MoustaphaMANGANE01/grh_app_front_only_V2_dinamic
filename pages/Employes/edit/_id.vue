@@ -2,9 +2,11 @@
   <div class="py-20 px-20 mx-auto bg-gray-900">
     <div class="headTitle flex justify-between mb-4">
       <div class="leftTitle">
-        <h4 class="text-2xl text-black dark:text-white">Profile</h4>
+        <h4         :class="{'text-gray-900':!isDarkMode,  'text-white':isDarkMode}"
+ class="text-2xl "
+        >Profile</h4>
       </div>
-      <div class="rightContent">
+      <!-- <div class="rightContent">
         <div class="exportContent inline-block relative group">
           <button
             type="button"
@@ -119,12 +121,17 @@
             ></path>
           </svg>
         </button>
-      </div>
+      </div> -->
     </div>
     <div
-      class="bg-gray-800 p-5 overflow-hidden shadow rounded-lg w-full md:w-full"
+      class=" p-5 overflow-hidden shadow rounded-lg w-full md:w-full"
+      :class="{'bg-gray-800':isDarkMode,'bg-white  ':!isDarkMode}"
+
     >
-      <div class="px-2 py-5 sm:px-6 bg-gray-900 flex justify-center rounded-xl">
+      <div class="px-2 py-5 sm:px-6  flex justify-center rounded-xl"
+            :class="{'bg-gray-900':isDarkMode,'bg-blue-900  ':!isDarkMode}"
+
+      >
         <h2 class="md:text-2xl sm:text-sm leading-6 font-bold text-white">
           Modifier un employé
         </h2>
@@ -152,7 +159,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="prenom"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Prénom</label
                 >
                 <input
@@ -160,14 +169,18 @@
                   type="text"
                   name="prenom"
                   id="prenom"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="nom"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Nom</label
                 >
                 <input
@@ -175,7 +188,9 @@
                   type="text"
                   name="nom"
                   id="nom"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
             </div>
@@ -187,7 +202,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="phone"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Téléphone</label
                 >
                 <input
@@ -195,14 +212,18 @@
                   type="tel"
                   name="telephone"
                   id="phone"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="adresse"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Adresse</label
                 >
                 <input
@@ -210,14 +231,18 @@
                   type="text"
                   name="adresse"
                   id="adresse"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="email"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Email</label
                 >
                 <input
@@ -225,7 +250,9 @@
                   type="email"
                   name="email"
                   id="email"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
             </div>
@@ -240,7 +267,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="sexe"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Genre</label
                 >
                 <input
@@ -248,14 +277,18 @@
                   type="text"
                   name="sexe"
                   id="sexe"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="situation_matrimonial"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >S.Matrimoniale</label
                 >
 
@@ -265,7 +298,9 @@
                   type="text"
                   name="situation_matrimonial"
                   id="situation_matrimonial"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 >
                   <option value="celibataire">Célibataire</option>
                   <option value="marier">Marié</option>
@@ -276,7 +311,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="nombre_enfants"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Nombre d'Enfants</label
                 >
                 <input
@@ -284,14 +321,18 @@
                   type="number"
                   name="nombre_enfants"
                   id="nombre_enfants"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="date_de_naissance"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Date de Naissance</label
                 >
                 <input
@@ -299,7 +340,9 @@
                   type="date"
                   name="date_de_naissance"
                   id="date_de_naissance"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
             </div>
@@ -313,7 +356,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="type_de_contrat"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Type de Contrat</label
                 >
                 <select
@@ -321,7 +366,9 @@
                   type="text"
                   name="type_de_contrat"
                   id="type_de_contrat"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 >
                   <option value="cdi">CDI</option>
                   <option value="cdd">CDD</option>
@@ -333,7 +380,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="salaire"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Salaire</label
                 >
                 <input
@@ -341,14 +390,18 @@
                   type="number"
                   name="salaire"
                   id="salaire"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="date_entree"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Date d'Entrée</label
                 >
                 <input
@@ -356,21 +409,27 @@
                   type="date"
                   name="date_entree"
                   id="date_entree"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="role"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Rôle</label
                 >
                 <select
                   v-model="employeeData.employer.role"
                   name="role"
                   id="role"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 >
                   <option value="admin">Admin</option>
                   <option value="supervisor">Supervisor</option>
@@ -385,7 +444,9 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="solde_points"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Solde Points</label
                 >
                 <input
@@ -393,14 +454,18 @@
                   type="number"
                   name="solde_points"
                   id="solde_points"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="solde_conges"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
+
                   >Solde Congés</label
                 >
                 <input
@@ -408,7 +473,9 @@
                   type="number"
                   name="solde_conges"
                   id="solde_conges"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
             </div>
@@ -417,7 +484,9 @@
             <div class="flex items-center">
               <button
                 type="submit"
-                class="bg-gray-900 text-white flex justify-center w-full py-2 rounded-xl"
+                class=" text-white flex justify-center w-full py-2 rounded-xl"
+                                  :class="{'bg-gray-900':isDarkMode, 'bg-blue-900':!isDarkMode}"
+
               >
                 Modifier
               </button>
@@ -437,6 +506,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      isDarkMode:false,
       employeeData: {
         employer: {
           id: null,
@@ -511,7 +581,6 @@ export default {
       try {
         const response = await axios.put(`http://127.0.0.1:8000/api/v1/employes/update/${this.employeeId}`, this.employeeData.employer);
 
-        // this.updatedData = response.data;
         this.$router.push({ name: "Employes" });
 
         console.log('Données mises à jour avec succès!', this.employeeData.employer);

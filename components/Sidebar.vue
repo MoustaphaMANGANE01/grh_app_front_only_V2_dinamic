@@ -24,7 +24,7 @@
               </div>
             </NuxtLink>
           </li>
-          <li class="">
+          <li class="" v-if="user.role == 'admin'">
             <NuxtLink
               to="/"
               :class="{
@@ -42,8 +42,8 @@
               class="flex items-center rounded-xl p-2 mb-5 group"
             >
               <svg
-                width="30"
-                height="30"
+                width="20"
+                height="20"
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@
               <span v-if="showSpans" class="ms-3">Dashboard</span>
             </NuxtLink>
           </li>
-          <li>
+          <li v-if="user.role == 'admin'">
             <NuxtLink
               to="/Employes"
               :class="{
@@ -75,8 +75,8 @@
               class="flex items-center rounded-xl p-2 mb-5 group"
             >
               <svg
-                width="30"
-                height="30"
+                width="20"
+                height="20"
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@
             </NuxtLink>
           </li>
 
-          <li>
+          <li v-if="user.role == 'admin'">
             <NuxtLink
               to="/Absence"
               :class="{
@@ -111,8 +111,8 @@
               <svg
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
-                width="30px"
-                height="30px"
+                width="20px"
+                height="20px"
                 viewBox="0 0 52 52"
                 enable-background="new 0 0 52 52"
                 xml:space="preserve"
@@ -138,7 +138,7 @@
               >
             </NuxtLink>
           </li>
-          <li>
+          <li v-if="user.role == 'admin'">
             <NuxtLink
               to="/retards"
               :class="{
@@ -157,8 +157,8 @@
             >
               <svg
                 fill="currentColor"
-                height="30px"
-                width="30px"
+                height="20px"
+                width="20px"
                 version="1.1"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +209,7 @@
               >
             </NuxtLink>
           </li>
-          <li>
+          <!-- <li v-if="user.role == 'admin'">
             <NuxtLink
               to="/conges"
               :class="{
@@ -242,7 +242,8 @@
                 >Congés</span
               >
             </NuxtLink>
-          </li>
+          </li> -->
+
           <!-- <li>
 
 
@@ -273,24 +274,114 @@
 
           <li>
             <NuxtLink
-              to="/etat_pret"
+              to="/demandes"
               :class="{
-                'dark:text-white': isDarkMode && $route.path === '/etat_pret',
+                'dark:text-white': isDarkMode && $route.path === '/demandes',
                 'text-gray-900':
-                  (!isDarkMode || $route.path !== '/etat_pret') &&
-                  $route.path !== '/etat_pret',
-                'dark:text-white': isDarkMode && $route.path === '/etat_pret',
-                'text-white': !isDarkMode && $route.path === '/etat_pret',
+                  (!isDarkMode || $route.path !== '/demandes') &&
+                  $route.path !== '/demandes',
+                'dark:text-white': isDarkMode && $route.path === '/demandes',
+                'text-white': !isDarkMode && $route.path === '/demandes',
                 'dark:border-l-sky-500 border-l-sky-500':
-                  $route.path === '/etat_pret',
+                  $route.path === '/demandes',
                 'bg-gradient-to-r from-sky-600 to-cyan-400':
-                  $route.path === '/etat_pret',
+                  $route.path === '/demandes',
                 'flex items-center rounded-xl p-2 mb-5 group': true,
               }"
             >
               <svg
-                width="26"
-                height="30"
+                width="20px"
+                height="20px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M13 3H8.2C7.0799 3 6.51984 3 6.09202 3.21799C5.71569 3.40973 5.40973 3.71569 5.21799 4.09202C5 4.51984 5 5.0799 5 6.2V17.8C5 18.9201 5 19.4802 5.21799 19.908C5.40973 20.2843 5.71569 20.5903 6.09202 20.782C6.51984 21 7.0799 21 8.2 21H13M13 3L19 9M13 3V7.4C13 7.96005 13 8.24008 13.109 8.45399C13.2049 8.64215 13.3578 8.79513 13.546 8.89101C13.7599 9 14.0399 9 14.6 9H19M19 9V10M19.0001 15C17.0027 15 17.0017 15.4862 17.0001 16.3292L17.0001 16.3325C16.9983 17.2328 17.0001 17.5 19.0001 17.5C21.0001 17.5 21.0001 17.7055 21.0001 18.6667C21.0001 19.389 21.0001 20 19.0001 20M19.0001 15L21.0001 15M19.0001 15L19 14M19.0001 20H17.0001M19.0001 20L19 21"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </svg>
+              <span v-if="showSpans" class="flex-1 ms-3  whitespace-nowrap"
+                >Demandes</span
+              >
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink
+              to="/demandes"
+              :class="{
+                'dark:text-white': isDarkMode && $route.path === '/Employes/bs',
+                'text-gray-900':
+                  (!isDarkMode || $route.path !== '/Employes/bs') &&
+                  $route.path !== '/Employes/bs',
+                'dark:text-white': isDarkMode && $route.path === '/Employes/bs',
+                'text-white': !isDarkMode && $route.path === '/Employes/bs',
+                'dark:border-l-sky-500 border-l-sky-500':
+                  $route.path === '/Employes/bs',
+                'bg-gradient-to-r from-sky-600 to-cyan-400':
+                  $route.path === '/Employes/bs',
+                'flex items-center rounded-xl p-2 mb-5 group': true,
+              }"
+            >
+              <svg
+                width="20px"
+                height="20px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M13 3H8.2C7.0799 3 6.51984 3 6.09202 3.21799C5.71569 3.40973 5.40973 3.71569 5.21799 4.09202C5 4.51984 5 5.0799 5 6.2V17.8C5 18.9201 5 19.4802 5.21799 19.908C5.40973 20.2843 5.71569 20.5903 6.09202 20.782C6.51984 21 7.0799 21 8.2 21H13M13 3L19 9M13 3V7.4C13 7.96005 13 8.24008 13.109 8.45399C13.2049 8.64215 13.3578 8.79513 13.546 8.89101C13.7599 9 14.0399 9 14.6 9H19M19 9V10M19.0001 15C17.0027 15 17.0017 15.4862 17.0001 16.3292L17.0001 16.3325C16.9983 17.2328 17.0001 17.5 19.0001 17.5C21.0001 17.5 21.0001 17.7055 21.0001 18.6667C21.0001 19.389 21.0001 20 19.0001 20M19.0001 15L21.0001 15M19.0001 15L19 14M19.0001 20H17.0001M19.0001 20L19 21"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </svg>
+              <span v-if="showSpans" class="flex-1 ms-3  whitespace-nowrap"
+                >Bulletins de Salaires</span
+              >
+            </NuxtLink>
+          </li>
+          <li v-if="user.role == 'admin'">
+            <NuxtLink
+              to="/etatDesPres"
+              :class="{
+                'dark:text-white': isDarkMode && $route.path === '/etatDesPres',
+                'text-gray-900':
+                  (!isDarkMode || $route.path !== '/etatDesPres') &&
+                  $route.path !== '/etatDesPres',
+                'dark:text-white': isDarkMode && $route.path === '/etatDesPres',
+                'text-white': !isDarkMode && $route.path === '/etatDesPres',
+                'dark:border-l-sky-500 border-l-sky-500':
+                  $route.path === '/etatDesPres',
+                'bg-gradient-to-r from-sky-600 to-cyan-400':
+                  $route.path === '/etatDesPres',
+                'flex items-center rounded-xl p-2 mb-5 group': true,
+              }"
+            >
+              <svg
+                width="20"
+                height="20"
                 viewBox="0 0 16 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -301,14 +392,14 @@
                   fill="currentColor"
                 ></path>
               </svg>
-              <span v-if="showSpans" class="flex-1 ms-3 mt-5 whitespace-nowrap"
+              <span v-if="showSpans" class="flex-1 ms-3  whitespace-nowrap"
                 >Etat des prets</span
               >
             </NuxtLink>
           </li>
         </ul>
         <ul class="pt-4 mt-4 space-y-2 font-medium dark:border-gray-700">
-          <li>
+          <li v-if="user.role == 'admin'">
             <NuxtLink
               to="/users"
               :class="{
@@ -326,8 +417,8 @@
               }"
             >
               <svg
-                width="30"
-                height="32"
+                width="20"
+                height="20"
                 viewBox="0 0 20 22"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -355,8 +446,8 @@
               }"
             >
               <svg
-                width="30"
-                height="30"
+                width="20"
+                height="20"
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -420,7 +511,6 @@
           <div class="flex items-center">
             <div class="dark-mode">
               <svg
-                
                 fill="#000000"
                 width="14px"
                 height="14px"
@@ -530,8 +620,14 @@ export default {
       isSidebarMinimized: false,
       dynamicMargin: "true",
       isSidebarVisible: false,
+      user: {},
     };
   },
+
+  mounted() {
+    this.me();
+  },
+
   methods: {
     async showBirthdaysDetails() {
       try {
@@ -598,6 +694,42 @@ export default {
           "Erreur lors de la récupération des détails des anniversaires :",
           error.message
         );
+      }
+    },
+
+    async me() {
+      try {
+        const userToken = localStorage.getItem("token");
+
+        if (!userToken) {
+          console.error(
+            "Le jeton d'utilisateur est introuvable dans le localStorage"
+          );
+          return;
+        }
+
+        const response = await this.$axios.get(
+          "http://127.0.0.1:8000/api/v1/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
+
+        console.log("Response Status:", response.status);
+        console.log("Response Data:", response.data.status);
+
+        if (response.data.status == "success") {
+          const rp = response.data.data;
+          this.user = rp;
+          console.log("Récupération réussie");
+          // this.$router.push("/index");
+        } else {
+          console.error("Échec de la récupération :", response.data.message);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
       }
     },
 

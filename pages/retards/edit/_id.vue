@@ -1,8 +1,13 @@
 <template>
   <div class="p-4 md:pt-10 md:ml-10 lg:p-28">
-    <div class="bg-gray-800 sm:mt-28 p-5 overflow-hidden shadow rounded-lg w-full md:w-3/4 lg:w-full mx-auto">
-      <div class="px-2 py-5 sm:px-6 bg-gray-900 flex justify-center rounded-xl">
-        <h2 class="md:text-2xl sm:text-xl leading-6 font-bold text-white">
+     <div
+      class=" p-5 overflow-hidden shadow rounded-lg w-full md:w-full"
+      :class="{'bg-gray-800':isDarkMode,'bg-white  ':!isDarkMode}"
+    >
+      <div class="px-2 py-5 sm:px-6  flex justify-center rounded-xl"
+      :class="{'bg-blue-900':!isDarkMode,'bg-gray-900':isDarkMode}">
+        <h2 class="md:text-2xl sm:text-sm text-white leading-6 font-bold "
+        :class="{'text-white':isDarkMode,}">
           Modifier le retard d'un employé
         </h2>
       </div>
@@ -15,14 +20,16 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="employes"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "   :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
                   >Employé</label
                 >
                 <select
                   v-model="selectedEmploye"
                   name="employes"
                   id="employes"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 >
                   <option
                     v-for="employe in employes"
@@ -37,7 +44,8 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="motif"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
                   >Motifs de l'retard</label
                 >
                 <input
@@ -45,7 +53,9 @@
                   type="text"
                   name="motif"
                   id="motif"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
             </div>
@@ -57,7 +67,8 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="date_debut"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
                   >Heure Attendu</label
                 >
                 <input
@@ -65,14 +76,17 @@
                   type="time"
                   name="date_debut"
                   id="date_debut"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
 
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="date_fin"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
                   >Heure D'Arrivée</label
                 >
                 <input
@@ -80,7 +94,9 @@
                   type="time"
                   name="date_fin"
                   id="date_fin"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full border rounded-md"
+                                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
  <!-- <div class="mb-4 flex-1 p-2">
@@ -100,7 +116,8 @@
               <div class="mb-4 flex-1 p-2">
                 <label
                   for="points_perdues"
-                  class="block text-sm font-semibold text-gray-100"
+                  class="block text-sm font-semibold "
+                     :class="{'text-gray-100':isDarkMode, 'text-gray-900':!isDarkMode}"
                   >Points perdus</label
                 >
                 <input
@@ -108,7 +125,9 @@
                   type="float"
                   name="points_perdues"
                   id="points_perdues"
-                  class="mt-1 p-2 w-full bg-gray-500 border rounded-md"
+                  class="mt-1 p-2 w-full  border rounded-md"
+                                                    :class="{'bg-gray-500':isDarkMode, 'bg-white':!isDarkMode}"
+
                 />
               </div>
             </div>
@@ -118,7 +137,9 @@
             <div class="flex items-center">
               <button
                 type="submit"
-                class="bg-gray-900 text-white flex justify-center w-full py-2 rounded-xl"
+                class=" flex justify-center w-full py-2 rounded-xl"
+               :class="{'bg-gray-900':isDarkMode, 'bg-blue-900 text-white':!isDarkMode}"
+
               >
                 Enregistrer
               </button>

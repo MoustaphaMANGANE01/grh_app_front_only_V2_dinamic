@@ -1,7 +1,9 @@
 <template>
   <div class="flex justify-center py-20">
-    <div class="rounded-xl bg-gray-800 p-10 h-full text-gray-500 w-full mx-48">
-      <div class="text-2xl font-bold">
+    <div class="rounded-xl p-10 h-full  w-full mx-48"
+                           :class="{'bg-gray-800 text-gray-500':isDarkMode, 'bg-cyan-100':!isDarkMode}"
+>
+      <div class="text-2xl font-bold" >
         <h4>Détails</h4>
       </div>
 
@@ -76,6 +78,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+        isDarkMode:false,
       employe: {},
       employes: [],
       selectedEmploye: null,

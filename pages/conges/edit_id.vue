@@ -149,7 +149,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      isDarkMode:false,
       selectedEmploye: "",
       motif: "",
       date_debut: "",

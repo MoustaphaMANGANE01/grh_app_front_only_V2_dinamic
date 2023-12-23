@@ -4,7 +4,8 @@
   >
     <div class="headTitle flex flex-col lg:flex-row mt-20 justify-between mb-4">
       <div class="leftTitle">
-        <h4 class="text-2xl text-black dark:text-white">
+        <h4 class="text-2xl font-bold"
+        :class="{'text-gray-800':!isDarkMode, 'text-white':isDarkMode}">
           Liste des Employés Retards
         </h4>
       </div>
@@ -12,7 +13,7 @@
         <NuxtLink to="/retards/add">
           <button
             type="button"
-            class="inline-flex items-center ml-2 text-gray-500 bg-blue-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
+            class="inline-flex items-center ml-2 text-gray-500 bg-cyan-500 hover:bg-gray-100 font-medium rounded-xl text-sm px-3 py-2 dark:bg-accent dark:text-white dark:hover:bg-gray-700"
           >
             <svg
               width="20"
@@ -35,10 +36,14 @@
 
     <div class="shadow-md overflow-x-auto sm:rounded-lg">
       <table
-        class="w-full table-auto rounded-xl text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                :class="{'text-white':!isDarkMode, 'text-gray-400':isDarkMode}"
+
+        class="w-full table-auto rounded-xl text-sm text-left rtl:text-right "
       >
         <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          class="text-xs  uppercase  "
+          :class="{'text-white bg-cyan-500':!isDarkMode, 'bg-gray-700 text-gray-400 ':isDarkMode}"
+
         >
           <tr>
             <th scope="col" class="px-6 py-3">ID</th>
@@ -56,7 +61,9 @@
 
         <tbody>
           <tr
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            class=" border-b  "
+                        :class="{'bg-white hover:bg-cyan-200 text-cyan-500':!isDarkMode,'border-gray-700 bg-gray-800 hover:bg-gray-600':isDarkMode}"
+
             v-for="(retard, index) in retards"
             :key="index"
           >
@@ -64,7 +71,9 @@
 
             <th
               scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="px-6 py-4 font-medium whitespace-nowrap"
+                          :class="{'bg-white hover:bg-cyan-200 text-cyan-500':!isDarkMode,'border-gray-700 bg-gray-800 hover:bg-gray-600':isDarkMode}"
+
             >
               {{ retard.prenom }} {{ retard.name }}
             </th>

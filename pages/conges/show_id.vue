@@ -100,7 +100,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      isDarkMode:false,
       employe: {},
       absenceDetails: {
         employes_id: "",
